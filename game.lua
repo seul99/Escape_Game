@@ -10,12 +10,12 @@ local ui = require("ui")                --ui.lua 파일 불러오기기
 local scene = composer.newScene()
 
 -- 미니게임 성공 시 대화&총알 업데이트 함수
-local function onMiniGameSuccess()
+function onMiniGameSuccess()
     ui.updateDialogueText(dialogueText, "미니게임 성공! 총알을 획득했습니다.")
     ui.updateBullets(bullets) -- 총알 UI 업데이트
 end
 -- 실패 시 대화 업데이트 함수
-local function onMiniGameFailure()
+function onMiniGameFailure()
     ui.updateDialogueText(dialogueText, "미니게임 실패! 총알을 얻지 못했습니다.")
     ui.updateDialogueBoxImage(dialogueBox, "image/UI/dialogue/dialogue_default.png")
 end
@@ -48,10 +48,10 @@ function scene:create(event)
 
     
     -- 대화창 & 텍스트 생성
-    local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
+    dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
 
     -- 목숨(총알) 생성
-    local bulletGroup, bullets = ui.createBullets(sceneGroup)
+    bulletGroup, bullets = ui.createBullets(sceneGroup)
     sceneGroup:insert(bulletGroup)
 
     -- 첫 번째 대화 표시

@@ -5,11 +5,11 @@ function scene:create( event )
 	local sceneGroup = self.view
 	
 	-- BACKGROUND
-	local bg = display.newImage("image/main title/title_bg.png")
+	local bg = display.newImage("Image/main title/title_bg.png")
 	bg.x = display.contentCenterX
 	bg.y = display.contentCenterY
 	
-	local dialogueBox = display.newImage("image/dialogue/dialogue_blood.png")
+	local dialogueBox = display.newImage("Image/UI/dialogue/dialogue_blood.png")
     dialogueBox.x = display.contentCenterX  
     dialogueBox.y = display.contentHeight - 130
     dialogueBox:scale(1, 0.65)
@@ -50,9 +50,8 @@ function scene:create( event )
 		end
 
 		if (Data[index].text) then
-			
-
-		content.text = Data[index].dialogue
+			content.text = Data[index].dialogue
+		end
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)

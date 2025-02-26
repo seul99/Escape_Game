@@ -1,68 +1,36 @@
 -----------------------------------------------------------------------------------------
 --
--- miniGame.lua
+-- BeforeBookGame.lua
 --
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
-local ui = require("ui")
+local ui = require("ui")                --ui.lua 파일 불러오기기
+
 local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	local bg = display.newImage("Image/study/books.png")
+	bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
+	sceneGroup:insert(bg)
 
-	local background = display.newImageRect("image/bedroom/bedroom_completed.png", display.contentWidth, display.contentHeight)
-	background.x, background.y = display.contentWidth/2, display.contentHeight/2
+	-- 대화창 & 텍스트
+    local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
+    ui.updateDialogueText(dialogueText, "책장에서 두 칸만 물건이 들어있네.")
 
-	local textBg = display.newRect(display.contentWidth/2, display.contentHeight*0.41, 500, 120 )
-	textBg:setFillColor(0, 0, 0)
-
-	local completedText = display.newText( "completed", display.contentWidth/2, display.contentHeight*0.4)
-	completedText.size = 100
-	completedText:setFillColor(1,0,0)
-	
-
-	local bullet_image
-	
-	timer.performWithDelay( 3000, function()
-		completedText:removeSelf()
-		completedText = nil
-		
-		textBg:removeSelf()
-		textBg = nil
-
-		bullet_image = display.newImage("image/UI/bullets/bullets_empty.png")
-		bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
-		sceneGroup:insert(bullet_image)
-
-	-- 총알 이미지 클릭해서 획득
-	local function onTouch( event )
-		if event.phase == "ended" then 
-			bullet_image:removeSelf()
-			bullet_image = display.newImage("image/UI/bullets/bullets_filled.png")
-			bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
-			sceneGroup:insert(bullet_image)
+    -- 대화창 클릭 이벤트 리스너
+	local function onDialogueBoxTap(event)
+		if no_more_text == 1 then
+			composer.gotoScene("bookGame")
+		elseif event.phase == "ended" then    
+			ui.updateDialogueText(dialogueText, "자세히 살펴보자.")
+			no_more_text = 1
 		end
+		return true  -- 이벤트 전파 방지
 	end
-
-	bullet_image:addEventListener("touch", onTouch)
-
-	end)
-
-	local function onMiniGameSuccess()
-		ui.updateDialogueText(dialogueText, "미니게임 성공! 총알을 획득했습니다.")
-		ui.updateBullets(bullets) -- 총알 UI 업데이트
-   end
-
-	local bulletGroup, bullets = ui.createBullets(sceneGroup)
-   
-   
-	
-	sceneGroup:insert(background)
-	sceneGroup:insert(textBg)
-	sceneGroup:insert(completedText)
-	sceneGroup:insert(bulletGroup)
-
+    
+    dialogueBox:addEventListener("touch", onDialogueBoxTap)
 end
 
 function scene:show( event )
