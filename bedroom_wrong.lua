@@ -1,14 +1,19 @@
 -----------------------------------------------------------------------------------------
 --
--- miniGame.lua
---
+-- bedroom_wrong.lua
+-- 게임을 실패했을 경우 실패화면 전환
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
 local scene = composer.newScene()
+-- 실패 횟수 가져오기
+
 
 function scene:create( event )
 	local sceneGroup = self.view
+
+	local failCount = composer.getVariable("failCount") or 0  
+   composer.setVariable("failCount", failCount + 1)
 
 	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
 	background.x, background.y = display.contentWidth/2, display.contentHeight/2
@@ -19,6 +24,8 @@ function scene:create( event )
 	local failureText = display.newText( "Failure", display.contentWidth/2, display.contentHeight*0.4)
 	failureText.size = 140
 	failureText:setFillColor(1,0,0)
+
+	 
 
 	-- 실패시 화면전환
 	timer.performWithDelay( 2000, function()
@@ -33,16 +40,6 @@ function scene:create( event )
 		end
 	end )
 
-
-	-- 다시하기 이벤트 삭제
-	-- local replay = display.newText("다시 하기", display.contentWidth/2, display.contentHeight*0.6)
-	-- replay:setFillColor(0, 0, 0)
-	-- replay.size = 100
-	-- function replay:tap( event )
-   --    composer.gotoScene( 'bedroom_puzzle' )
- 	-- end
-
-	-- replay:addEventListener("tap", replay)
 
 	sceneGroup:insert(background)
 	sceneGroup:insert(textBg)

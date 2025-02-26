@@ -4,81 +4,166 @@
 -- 게임실패 했을 경우
 -----------------------------------------------------------------------------------------
 
-local composer = require( "composer" )
+local composer = require("composer")
 local scene = composer.newScene()
 
-failCount = composer.getVariable( "failCount" ) or 0
-failCount = failCount + 1
-composer.setVariable( "failCount", failCount )
 
-local currentLine = 1
-local content
-
-function scene:create( event )
+function scene:create(event)
 	local sceneGroup = self.view
 
+	-- 배경 이미지
 	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
 	background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
 
+	-- 대화 박스 이미지
 	local dialogBox = display.newImage("image/UI/dialogue/dialogue_default.png")
-	dialogBox.x, dialogBox.y = display.contentWidth / 2, display.contentHeight * 0.8  -- `dialogBox.y` 수정
+	dialogBox.x, dialogBox.y = display.contentWidth / 2, display.contentHeight * 0.8
 
-	 -- 첫 번째 대사 설정
-    local dialogText = ""
+	local failCount = composer.getVariable( "failCount" ) or 0
 
-    if failCount == 1 then
-        dialogText = "너 한번 실패했어"
-    elseif failCount == 2 then
-        dialogText = "너 지금 두 번째 실패했어."
-    else
-        dialogText = "게임 실패"
-    end
-
-	content = display.newText({
-		text = dialogText, 
-		x = display.contentWidth * 0.6,
-		y = display.contentHeight * 0.85,
-		width = display.contentWidth * 0.7,
-		height = display.contentHeight * 0.2,
+	-- 실패 횟수 텍스트
+	local failText = display.newText({
+		text = "실패 횟수: " .. failCount,
+		x = display.contentWidth * 0.15,
+		y = display.contentHeight * 0.9,
 		fontSize = 30,
 		align = "center"
-  })
-  content:setFillColor(0)
+	})
+	failText:setFillColor(0, 0, 0)
 
+	-- 첫 번째 대사 텍스트
+	local content = display.newText({
+		text = "",  -- 초기에는 빈 텍스트
+		x = display.contentWidth / 2,
+		y = display.contentHeight * 0.7,
+		width = display.contentWidth - 40,
+		height = 200,
+		fontSize = 30,
+		align = "center"
+	})
+	content:setFillColor(0,0,0)
 
-	-- 터치하면 다음 대사로 변경 (주먹구구식으로 직접 설정)
-	local function changeDialog()
-		if failCount == 1 then
-			 if currentLine == 1 then
-				  content.text = "다시 시도해봐"
-				  currentLine = currentLine + 1
-			 else
-				  composer.gotoScene("bedroom_main")
-			 end
-		elseif failCount == 2 then
-			 if currentLine == 1 then
-				  content.text = "지금 뭐하는거야?"
-				  currentLine = currentLine + 1
-			 elseif currentLine == 2 then
-				  content.text = "다시 시도해"
-				  currentLine = currentLine + 1
-			 else
-				  composer.gotoScene("bedroom_main")
-			 end
-		else
-			 composer.gotoScene("ending")
+    -- 대사 변경 함수
+local index = 0
+local function changeDialog()
+    -- 기존 content 객체 제거
+    if content then
+        display.remove(content)
+		  display.remove(failText)
+    end
+
+	if failCount == 1 then 
+		if index < 3 then
+			-- 새로운 대사 텍스트 생성
+			if index == 0 then
+				 content = display.newText({
+					  text = "그래도 아직 총알 두 개가 남아있으니까",
+					  x = display.contentWidth / 2,
+					  y = display.contentHeight * 0.8,
+					  width = display.contentWidth - 40,
+					  height = 200,
+					  fontSize = 30,
+					  align = "center"
+				 })
+				 content:setFillColor(0, 0, 0)
+			elseif index == 1 then
+				 content = display.newText({
+					  text = "어서 다른 장소를 찾아보자.",
+					  x = display.contentWidth / 2,
+					  y = display.contentHeight * 0.8,
+					  width = display.contentWidth - 40,
+					  height = 200,
+					  fontSize = 30,
+					  align = "center"
+				 })
+				 content:setFillColor(0, 0, 0)
+			end
+			index = index + 1
+	  else
+			-- 대사가 끝난 후 게임 다시 돌아가기
+			local replay = display.newText("다시 하기", display.contentWidth / 2, display.contentHeight * 0.6)
+			replay:setFillColor(0, 0, 0)
+			replay.size = 30
+			sceneGroup:insert(replay)
+			-- 위치 설정
+			replay.x = display.contentWidth / 2
+			replay.y = display.contentHeight * 0.8
+ 
+		  -- "다시 하기" 클릭 이벤트
+		  local function replayTap(event)
+ 
+			 composer.gotoScene('bedroom_puzzle', { effect = "fade", time = 400 })
 		end
-  end
+		replay:addEventListener("tap", replayTap)
+	  end
+	elseif failCount == 2 then
+		if index < 3 then
+			-- 새로운 대사 텍스트 생성
+			if index == 0 then
+				 content = display.newText({
+					  text = "윽…! 이게 무슨 소리지? 이상한 소리가 날 리가 없어! 여기서는 모두가 즐거우니까!\n “헉, 아니야! 이런 스산한 공간이 뭐가 즐겁다고!",
+					  x = display.contentWidth / 2,
+					  y = display.contentHeight * 0.8,
+					  width = display.contentWidth - 40,
+					  height = 200,
+					  fontSize = 30,
+					  align = "center"
+				 })
+				 content:setFillColor(0, 0, 0)
+			elseif index == 1 then
+				 content = display.newText({
+					  text = "이 소리에 귀 기울이면 이상해지는 것 같아…. 집에 가는 것만 생각하자",
+					  x = display.contentWidth / 2,
+					  y = display.contentHeight * 0.8,
+					  width = display.contentWidth - 40,
+					  height = 200,
+					  fontSize = 30,
+					  align = "center"
+				 })
+				 content:setFillColor(0, 0, 0)
+			end
+			index = index + 1
+	  else
+			-- 대사가 끝난 후 게임 다시 돌아가기
+			local replay = display.newText("다시 하기", display.contentWidth / 2, display.contentHeight * 0.6)
+			replay:setFillColor(0, 0, 0)
+			replay.size = 30
+			sceneGroup:insert(replay)
+			-- 위치 설정
+			replay.x = display.contentWidth / 2
+			replay.y = display.contentHeight * 0.8
+ 
+		  -- "다시 하기" 클릭 이벤트
+		  local function replayTap(event)
+ 
+			 composer.gotoScene('bedroom_puzzle', { effect = "fade", time = 400 })
+		end
+		replay:addEventListener("tap", replayTap)
+	  end
+	else
+		content = display.newText({
+			text = "게임 끝났다 난 망했어",
+			x = display.contentWidth / 2,
+			y = display.contentHeight * 0.8,
+			width = display.contentWidth - 40,
+			height = 200,
+			fontSize = 30,
+			align = "center"
+	  })
+	  content:setFillColor(0, 0, 0)
+	end
+ 
+end
 
-  -- 배경을 터치하면 changeDialog() 실행
-  dialogBox:addEventListener("tap", changeDialog)
 
+    -- 터치하면 changeDialog() 실행
+    dialogBox:addEventListener("tap", changeDialog)
 
-	-- 화면에 추가
-	sceneGroup:insert(background)
-	sceneGroup:insert(dialogBox)
-	sceneGroup:insert(content)
-
+    -- 화면에 추가
+    sceneGroup:insert(background)
+    sceneGroup:insert(dialogBox)
+    sceneGroup:insert(content)
+    
 end
 
 function scene:show( event )
@@ -104,6 +189,7 @@ function scene:hide( event )
 		--
 		-- INSERT code here to pause the scene
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
+		composer.removeScene( "game_wrong" )
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 	end
