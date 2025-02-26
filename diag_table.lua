@@ -40,6 +40,62 @@ function scene:create( event )
 	-- json에서 읽은 정보 적용하기
 	local index = 0
 	local horror = "change"
+	local eat = "first"
+
+	local choices = {}
+	local buttons = {}
+
+	local function NotEatTapped( event )
+
+		if (choices[2].x - 50 < event.target.x and event.target.x < choices[2].x + 50
+			and choices[2].y - 50 < event.target.y and event.target.y < choices[2].y + 50) then
+				choices[2].text = "먹는다."
+				eat = "second"
+				
+				--choices[1]:addEventListener("tap", EatTapped)
+				--choices[2]:addEventListener("tap", EatTapped)
+			--dialogueBox:addEventListener("tap", nextScript)
+			index = index + 1
+		end
+	end
+
+	-- done!
+	local function EatTapped( event )
+
+		if (eat ~= "second") then
+			if (choices[1].x - 50 < event.target.x and event.target.x < choices[1].x + 50
+				and choices[1].y - 50 < event.target.y and event.target.y < choices[1].y + 50) then
+				--index = index + 1
+				-- display.remove(event.target)
+				-- display.remove(buttons[1])
+				for i = 1, 2 do
+					display.remove(buttons[i])
+					display.remove(choices[i])
+				end
+				
+				--dialogueBox:removeEventListener("tap", nextScript)
+				--dialogueBox:addEventListener("tap", nextScript)
+				index = index + 1
+			end
+		else
+			if (choices[1].x - 50 < event.target.x and event.target.x < choices[1].x + 50
+				and choices[1].y - 50 < event.target.y and event.target.y < choices[1].y + 50
+				and choices[2].x - 50 < event.target.x and event.target.x < choices[2].x + 50
+				and choices[2].y - 50 < event.target.y and event.target.y < choices[2].y + 50) then
+				--index = index + 1
+				-- display.remove(event.target)
+				-- display.remove(buttons[1])
+				for i = 1, 2 do
+					display.remove(buttons[i])
+					display.remove(choices[i])
+				end
+				
+				--dialogueBox:removeEventListener("tap", nextScript)
+				--dialogueBox:addEventListener("tap", nextScript)
+				index = index + 1
+			end
+		end
+	end
 
 	local function nextScript( event )
 		index = index + 1
@@ -49,6 +105,42 @@ function scene:create( event )
 			composer.removeScene("diag_table")
 			return
 		end
+
+		--dialogueBox:removeEventListener("tap", nextScript)
+		--- 칠면조 먹을지 말지 선택하는 첫번째 창
+		if (Data[index].eat == eat) then
+			dialogueBox:removeEventListener("tap", nextScript)
+
+    		choices[1] = display.newText("먹는다.", display.contentCenterX*1.15, display.contentCenterY + 180, 300, 50)
+    		choices[2] = display.newText("먹지 않는다.", display.contentCenterX*1.15, display.contentCenterY + 230, 300, 50)
+			for i = 1, 2 do
+				choices[i]:setFillColor(1)
+				choices[i].size = 30
+			end
+
+			buttons[1] = display.newRect(display.contentCenterX*1.05 - 22, display.contentCenterY + 175, 165, 45)
+			buttons[1]:setFillColor(0)
+			buttons[1].alpha = 0.5
+			buttons[2] = display.newRect(display.contentCenterX*1.05 - 22, display.contentCenterY + 225, 165, 45)
+			buttons[2]:setFillColor(0)
+			buttons[2].alpha = 0.5
+
+			choices[1]:addEventListener("tap", EatTapped)
+			choices[2]:addEventListener("tap", NotEatTapped)
+
+			-- if (eat == "second") then
+			-- 	choices[1]:addEventListener("tap", EatTapped)
+			-- 	choices[2]:addEventListener("tap", EatTapped)
+			-- end
+			
+			--dialogueBox:addEventListener("tap", nextScript)
+			continue
+		elseif(eat == "second") then
+
+			choices[1]:addEventListener("tap", EatTapped)
+			choices[2]:addEventListener("tap", EatTapped)
+		end
+		dialogueBox:addEventListener("tap", nextScript)
 
 		if (Data[index].scene == horror) then
 
@@ -64,6 +156,11 @@ function scene:create( event )
 			bg.y = display.contentCenterY
 			bg:toBack()
 
+			for i = 1, 2 do
+				display.remove(buttons[i])
+				display.remove(choices[i])
+			end
+
 			content.text = Data[index].dialogue
 
 			bg = display.newImage("image/cutscene/cutscene_7.png")
@@ -73,6 +170,7 @@ function scene:create( event )
 			sceneGroup:insert(bg)
 			sceneGroup:insert(dialogueBox)
 			sceneGroup:insert(content)
+			
 		else
 			content.text = Data[index].dialogue
 		end
@@ -81,49 +179,7 @@ function scene:create( event )
 	
 	dialogueBox:addEventListener("tap", nextScript)
 
-	------ 먹는다 / 안먹는다 버튼 활성화 하기
-
-	-- local btn = {}
-
-	-- for i = 1, 3 do
-	-- 	btn[i] = display.newImage("image/button0"..i..".png")
-	-- 	btn[i]:scale(1.5, 1.5)
-	-- 	btn[i].x, btn[i].y = display.contentWidth*0.2+i*200, display.contentHeight*0.6
-
-	-- 	btn[i].title = display.newText("", btn[i].x, btn[i].y + 100)
-	-- 	btn[i].title:setFillColor(0)
-	-- 	btn[i].title.size = 40
-	-- end
-
-	-- btn[1].title.text = "파크 소개"
-	-- btn[2].title.text = "컨셉 소개"
-	-- btn[3].title.text = "캐릭터 소개"
-
-	-- btn[1].scene = "intro"
-	-- btn[2].scene = "concept"
-	-- btn[3].scene = "character_info"
-
-	-- -- EVENT
-	-- function btnTap( event )
-	-- 	composer.gotoScene(event.target.scene)
-	-- end
-
-	-- for i = 1, 3 do
-	-- 	btn[i]:addEventListener("tap", btnTap)
-	-- end
-
-	-- -- 정렬
-	-- for i = 1, 3 do 
-	-- 	sceneGroup:insert(bg[i])
-	-- end
-
-	-- for i = 1, 3 do 
-	-- 	sceneGroup:insert(btn[i])
-	-- 	sceneGroup:insert(btn[i].title)
-	-- end
-
-
-
+	
 
 	sceneGroup:insert(bg)
 	sceneGroup:insert(dialogueBox)

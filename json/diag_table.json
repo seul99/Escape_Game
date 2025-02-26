@@ -6,11 +6,13 @@
 	},
 	{
     "scene" : "stay",
+		"eat" : "first",
 		"dialogue" : "칠면조를 꼭 한 번 먹어보고 싶었는데!",
 		"sound" : "sound/scene5-6.mp3"
 	},
 	{
     "scene" : "stay",
+		"eat" : "second",
 		"dialogue" : "흠흠~ 칠면조도 먹어보고 좋네!",
 		"sound" : "sound/scene5-6.mp3"
 	},
