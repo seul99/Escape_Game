@@ -31,7 +31,7 @@ local function fadeToBlack()
             transition.to(fadeRect, { time = 2000, alpha = 1, onComplete = function()
                 -- 암전이 끝난 후 1.8초 유지 후 씬 전환
                 timer.performWithDelay(1800, function()
-                    composer.gotoScene("toheezin") -- 원하는 씬으로 변경
+                    composer.gotoScene("diag_livingroom") -- 원하는 씬으로 변경
                 end)
             end })
         end)
