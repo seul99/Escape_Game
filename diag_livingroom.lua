@@ -7,7 +7,7 @@ function scene:create( event )
 	-- BACKGROUND
 	local bg = {}
 	
-	local dialogueBox = display.newImage("image/dialogue_default.png")
+	local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
     dialogueBox.x = display.contentCenterX  
     dialogueBox.y = display.contentHeight - 130
     dialogueBox:scale(1, 0.65)
