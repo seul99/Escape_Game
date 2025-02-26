@@ -55,7 +55,7 @@ function scene:create( event )
 				--choices[1]:addEventListener("tap", EatTapped)
 				--choices[2]:addEventListener("tap", EatTapped)
 			--dialogueBox:addEventListener("tap", nextScript)
-			index = index + 1
+			--index = index + 1
 		end
 	end
 
@@ -75,24 +75,19 @@ function scene:create( event )
 				
 				--dialogueBox:removeEventListener("tap", nextScript)
 				--dialogueBox:addEventListener("tap", nextScript)
-				index = index + 1
+				--index = index + 1
 			end
 		else
 			if (choices[1].x - 50 < event.target.x and event.target.x < choices[1].x + 50
 				and choices[1].y - 50 < event.target.y and event.target.y < choices[1].y + 50
 				and choices[2].x - 50 < event.target.x and event.target.x < choices[2].x + 50
 				and choices[2].y - 50 < event.target.y and event.target.y < choices[2].y + 50) then
-				--index = index + 1
-				-- display.remove(event.target)
-				-- display.remove(buttons[1])
+				
 				for i = 1, 2 do
 					display.remove(buttons[i])
 					display.remove(choices[i])
 				end
 				
-				--dialogueBox:removeEventListener("tap", nextScript)
-				--dialogueBox:addEventListener("tap", nextScript)
-				index = index + 1
 			end
 		end
 	end
@@ -134,13 +129,16 @@ function scene:create( event )
 			-- end
 			
 			--dialogueBox:addEventListener("tap", nextScript)
-			continue
 		elseif(eat == "second") then
 
-			choices[1]:addEventListener("tap", EatTapped)
-			choices[2]:addEventListener("tap", EatTapped)
+			-- choices[1]:addEventListener("tap", EatTapped)
+			-- choices[2]:addEventListener("tap", EatTapped)
+			for i = 1, 2 do
+				display.remove(buttons[i])
+				display.remove(choices[i])
+			end
 		end
-		dialogueBox:addEventListener("tap", nextScript)
+		--dialogueBox:addEventListener("tap", nextScript) ---- 중복 실행 -> 그래서 씬이 2컷씩 넘어감
 
 		if (Data[index].scene == horror) then
 
@@ -155,11 +153,6 @@ function scene:create( event )
 			bg.x = display.contentCenterX
 			bg.y = display.contentCenterY
 			bg:toBack()
-
-			for i = 1, 2 do
-				display.remove(buttons[i])
-				display.remove(choices[i])
-			end
 
 			content.text = Data[index].dialogue
 
