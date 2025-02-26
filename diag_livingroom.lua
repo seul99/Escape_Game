@@ -1,6 +1,6 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
-
+----살려주세요
 function scene:create( event )
 	local sceneGroup = self.view
 	
