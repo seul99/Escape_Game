@@ -10,6 +10,7 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 
+
 	local background = display.newImageRect("image/bedroom/bedroom_puzzle_bg.png", display.contentWidth, display.contentHeight)
  	background.x, background.y = display.contentWidth/2, display.contentHeight/2
 
@@ -114,6 +115,7 @@ function scene:create( event )
 		if(time.text =='-1')then
 			time.alpha = 0
 			if lampState ~= "completed" or frameState ~= "completed" or pillowState ~= "completed" then 
+
 				composer.gotoScene('bedroom_wrong')
 			else
 				composer.gotoScene( 'bedroom_completed')

@@ -6,14 +6,11 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
--- 실패 횟수 가져오기
+
 
 
 function scene:create( event )
 	local sceneGroup = self.view
-
-	local failCount = composer.getVariable("failCount") or 0  
-   composer.setVariable("failCount", failCount + 1)
 
 	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
 	background.x, background.y = display.contentWidth/2, display.contentHeight/2
@@ -25,6 +22,9 @@ function scene:create( event )
 	failureText.size = 140
 	failureText:setFillColor(1,0,0)
 
+	-- 실패했을 경우 카운트
+	local failCount = composer.getVariable("failCount") or 0
+	composer.setVariable("failCount", failCount + 1)
 	 
 
 	-- 실패시 화면전환

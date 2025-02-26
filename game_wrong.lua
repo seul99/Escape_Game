@@ -54,7 +54,7 @@ local function changeDialog()
 
 	if failCount == 1 then 
 		if index < 3 then
-			-- 새로운 대사 텍스트 생성
+			-- 새로운 대사 텍스트 생성	
 			if index == 0 then
 				 content = display.newText({
 					  text = "그래도 아직 총알 두 개가 남아있으니까",
@@ -79,29 +79,16 @@ local function changeDialog()
 				 content:setFillColor(0, 0, 0)
 			end
 			index = index + 1
-	  else
-			-- 대사가 끝난 후 게임 다시 돌아가기
-			local replay = display.newText("다시 하기", display.contentWidth / 2, display.contentHeight * 0.6)
-			replay:setFillColor(0, 0, 0)
-			replay.size = 30
-			sceneGroup:insert(replay)
-			-- 위치 설정
-			replay.x = display.contentWidth / 2
-			replay.y = display.contentHeight * 0.8
- 
-		  -- "다시 하기" 클릭 이벤트
-		  local function replayTap(event)
- 
-			 composer.gotoScene('bedroom_puzzle', { effect = "fade", time = 400 })
-		end
-		replay:addEventListener("tap", replayTap)
-	  end
+			else
+				-- 초기 게임 선택지로 돌아가도록 변경 해야함
+				composer.gotoScene('bedroom_wrong', { effect = "fade", time = 400 })
+	  		end
 	elseif failCount == 2 then
 		if index < 3 then
 			-- 새로운 대사 텍스트 생성
 			if index == 0 then
 				 content = display.newText({
-					  text = "윽…! 이게 무슨 소리지? 이상한 소리가 날 리가 없어! 여기서는 모두가 즐거우니까!\n “헉, 아니야! 이런 스산한 공간이 뭐가 즐겁다고!",
+					  text = "윽…! 이게 무슨 소리지? 이상한 소리가 날 리가 없어! 여기서는 모두가 즐거우니까!",
 					  x = display.contentWidth / 2,
 					  y = display.contentHeight * 0.8,
 					  width = display.contentWidth - 40,
@@ -111,6 +98,17 @@ local function changeDialog()
 				 })
 				 content:setFillColor(0, 0, 0)
 			elseif index == 1 then
+				content = display.newText({
+					text = "헉, 아니야! 이런 스산한 공간이 뭐가 즐겁다고!",
+					x = display.contentWidth / 2,
+					y = display.contentHeight * 0.8,
+					width = display.contentWidth - 40,
+					height = 200,
+					fontSize = 30,
+					align = "center"
+			  })
+			  content:setFillColor(0, 0, 0)
+			elseif index == 2 then
 				 content = display.newText({
 					  text = "이 소리에 귀 기울이면 이상해지는 것 같아…. 집에 가는 것만 생각하자",
 					  x = display.contentWidth / 2,
@@ -124,23 +122,13 @@ local function changeDialog()
 			end
 			index = index + 1
 	  else
-			-- 대사가 끝난 후 게임 다시 돌아가기
-			local replay = display.newText("다시 하기", display.contentWidth / 2, display.contentHeight * 0.6)
-			replay:setFillColor(0, 0, 0)
-			replay.size = 30
-			sceneGroup:insert(replay)
-			-- 위치 설정
-			replay.x = display.contentWidth / 2
-			replay.y = display.contentHeight * 0.8
- 
-		  -- "다시 하기" 클릭 이벤트
-		  local function replayTap(event)
- 
-			 composer.gotoScene('bedroom_puzzle', { effect = "fade", time = 400 })
-		end
-		replay:addEventListener("tap", replayTap)
+		-- 초기 게임 선택지로 돌아가도록 변경 해야함
+		composer.gotoScene('bedroom_wrong', { effect = "fade", time = 400 })
 	  end
 	else
+		-- 배드엔딩으로 위치 변경 요청
+		-- composer.gotoScene('bedroom_puzzle', { effect = "fade", time = 400 })
+
 		content = display.newText({
 			text = "게임 끝났다 난 망했어",
 			x = display.contentWidth / 2,
@@ -151,11 +139,9 @@ local function changeDialog()
 			align = "center"
 	  })
 	  content:setFillColor(0, 0, 0)
+
 	end
- 
 end
-
-
     -- 터치하면 changeDialog() 실행
     dialogBox:addEventListener("tap", changeDialog)
 
