@@ -38,7 +38,7 @@ end
 local composer = require "composer"
 
 local function onFirstView( event )
-	composer.gotoScene( "diag_livingroom" )
+	composer.gotoScene( "start" )
 end
 
 onFirstView()
