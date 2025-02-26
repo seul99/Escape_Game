@@ -4,12 +4,14 @@ local ui = {}
 function ui.createDialogueBox(sceneGroup)
     local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
     dialogueBox.x = display.contentCenterX  
-    dialogueBox.y = display.contentHeight - 150  
+    dialogueBox.y = display.contentHeight - 130  
+    dialogueBox:scale(1, 0.65)
+
 
     local text = display.newText({
         text = "", 
-        x = display.contentWidth * 0.5, 
-        y = display.contentHeight - 170,
+        x = display.contentWidth * 0.5 + 15, 
+        y = display.contentHeight - 105,
         width = display.contentWidth - 120,
         height = 200,
         fontSize = 40,
@@ -17,7 +19,7 @@ function ui.createDialogueBox(sceneGroup)
     })
     text:setFillColor(1, 1, 1)
     
-    sceneGroup:insert(dialogueBox)
+    sceneGroup:insert(dialogueBox)              --- 얘네 ---
     sceneGroup:insert(text)
 
     return dialogueBox, text
