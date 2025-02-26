@@ -5,11 +5,11 @@ function scene:create( event )
 	local sceneGroup = self.view
 	
 	-- BACKGROUND
-	local bg = display.newImage("image/cutscene_4.png")
+	local bg = display.newImage("image/cutscene/cutscene_4.png")
 	bg.x = display.contentCenterX
 	bg.y = display.contentCenterY
 	
-	local dialogueBox = display.newImage("image/dialogue_default.png")
+	local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
     dialogueBox.x = display.contentCenterX  
     dialogueBox.y = display.contentHeight - 130
     dialogueBox:scale(1, 0.65)
@@ -52,7 +52,7 @@ function scene:create( event )
 
 		if (Data[index].scene == horror) then
 
-    		bg = display.newImage("image/cutscene_5.png")
+    		bg = display.newImage("image/cutscene/cutscene_5.png")
 			bg.x = display.contentCenterX
 			bg.y = display.contentCenterY
 
