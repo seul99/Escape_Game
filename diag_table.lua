@@ -55,8 +55,20 @@ function scene:create( event )
     		bg = display.newImage("image/cutscene/cutscene_5.png")
 			bg.x = display.contentCenterX
 			bg.y = display.contentCenterY
+			bg:toBack()
+			
+			content.text = Data[index].dialogue
+			
+			bg = display.newImage("image/cutscene/cutscene_6.png")
+			bg.x = display.contentCenterX
+			bg.y = display.contentCenterY
+			bg:toBack()
 
 			content.text = Data[index].dialogue
+
+			bg = display.newImage("image/cutscene/cutscene_7.png")
+			bg.x = display.contentCenterX
+			bg.y = display.contentCenterY
 
 			sceneGroup:insert(bg)
 			sceneGroup:insert(dialogueBox)
