@@ -126,6 +126,11 @@ function scene:create( event )
 	pillow_image:addEventListener("touch", dragpillow)
 
 
+	local function onMiniGameSuccess()
+		ui.updateDialogueText(dialogueText, "미니게임 성공! 총알을 획득했습니다.")
+		ui.updateBullets(bullets) -- 총알 UI 업데이트
+   end
+
 	-- 타이머 10초 설정
 	local function counter(event)
 		time.text = time.text -1
@@ -139,6 +144,7 @@ function scene:create( event )
 			if lampState ~= "completed" or frameState ~= "completed" or pillowState ~= "completed" then 
 				composer.gotoScene('bedroom_wrong')
 			else
+				onMiniGameSuccess()
 				composer.gotoScene( 'bedroom_completed')
 			end
 		end
