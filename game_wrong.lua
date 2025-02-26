@@ -1,95 +1,84 @@
 -----------------------------------------------------------------------------------------
 --
 -- game_wrong.lua
--- 테스트 입니다.
+-- 게임실패 했을 경우
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
 local scene = composer.newScene()
-local json = require("json")
+
+local failCount = composer.getVariable( "failCount" ) or 0
+failCount = failCount + 1
+composer.setVariable( "failCount", failCount )
+
+local currentLine = 1
+local content
 
 function scene:create( event )
 	local sceneGroup = self.view
 
 	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
-	background.x, background.y = display.contentWidth/2, display.contentHeight/2
+	background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
 
 	local dialogBox = display.newImage("image/UI/dialogue/dialogue_default.png")
-	dialogBox.x, dialogBox.y = display.contentWidth/2, display.contentWidth/2
+	dialogBox.x, dialogBox.y = display.contentWidth / 2, display.contentHeight * 0.8  -- `dialogBox.y` 수정
+
+	 -- 첫 번째 대사 설정
+    local dialogText = ""
+
+    if failCount == 1 then
+        dialogText = "너 한번 실패했어"
+    elseif failCount == 2 then
+        dialogText = "너 지금 두 번째 실패했어."
+    else
+        dialogText = "게임 실패"
+    end
+
+	content = display.newText({
+		text = dialogText, 
+		x = display.contentWidth * 0.6,
+		y = display.contentHeight * 0.85,
+		width = display.contentWidth * 0.7,
+		height = display.contentHeight * 0.2,
+		fontSize = 30,
+		align = "center"
+  })
+  content:setFillColor(0)
 
 
-	-- 대화창
-	local dialog = display.newGroup()
+	-- 터치하면 다음 대사로 변경 (주먹구구식으로 직접 설정)
+	local function changeDialog()
+		if failCount == 1 then
+			 if currentLine == 1 then
+				  content.text = "다시 시도해봐"
+				  currentLine = currentLine + 1
+			 else
+				  composer.gotoScene("bedroom_main")
+			 end
+		elseif failCount == 2 then
+			 if currentLine == 1 then
+				  content.text = "지금 뭐하는거야?"
+				  currentLine = currentLine + 1
+			 elseif currentLine == 2 then
+				  content.text = "다시 시도해"
+				  currentLine = currentLine + 1
+			 else
+				  composer.gotoScene("bedroom_main")
+			 end
+		else
+			 composer.gotoScene("ending")
+		end
+  end
 
-	local content = display.newText(dialog, "", display.contentWidth*0.6, display.contentHeight*0.85, display.contentWidth*0.7, display.contentHeight*0.2)
-	content:setFillColor(0)
-	content.size = 30
+  -- 배경을 터치하면 changeDialog() 실행
+  dialogBox:addEventListener("tap", changeDialog)
 
-  -- JSON 정보 읽기
-  local function jsonParse(filename)
-	local path = system.pathForFile(filename, system.ResourceDirectory)
-	local file = io.open(path, "r")
 
-	if not file then
-		 print("파일을 찾을 수 없습니다: " .. filename)
-		 return nil
-	end
-
-	local contents = file:read("*a")
-	io.close(file)
-
-	local decoded, pos, msg = json.decode(contents)
-	if not decoded then
-		 print("JSON 파싱 실패: " .. msg)
-		 return nil
-	end
-
-	return decoded
-end
-
--- JSON 데이터 읽기
-local Data = jsonParse("json/fail.json")
-if not Data then
-	print("JSON 데이터를 불러올 수 없습니다.")
-	return
-end
-
-  -- json 에서 읽은 정보 적용하기
-  -- failCount 값 설정 (이 값을 1 또는 2로 바꾸면 해당하는 JSON 데이터를 출력)
-  local failCount = 1  -- 예시로 1로 설정, 이 값에 따라 출력되는 JSON이 달라짐
-  local index = failCount  -- failCount 값에 맞춰 index 설정
-  local lineIndex = 1  -- 각 content 배열 내에서의 인덱스
-
-  -- 대사 처리 함수
-  local function nextScript(event) 
-	-- 대사 출력
-	content.text = Data[index].content[lineIndex]
-
-	-- 한 항목의 모든 대사를 다 출력했으면 다음 항목으로 넘어감
-	lineIndex = lineIndex + 1
-	if lineIndex > #Data[index].content then
-		 lineIndex = 1  -- 다음 항목의 첫 번째 대사로 리셋
-
-		 -- failCount 증가하여 다음 항목으로 넘어감
-		 failCount = failCount + 1
-		 index = failCount
-
-		 -- 더 이상 대사가 없으면 bedroom_main 화면으로 전환
-		 if index > #Data then 
-			  composer.gotoScene("bedroom_main")
-		 end
-	end
-end
-
-  -- dialogBox 클릭 시 대사 진행
-  dialogBox:addEventListener("tap", nextScript)
-
-  -- 초기 대사 출력
-  content.text = Data[index].content[lineIndex]
-
-  	sceneGroup:insert(background)
+	-- 화면에 추가
+	sceneGroup:insert(background)
 	sceneGroup:insert(dialogBox)
-	sceneGroup:insert(dialog)
+	sceneGroup:insert(content)
+
 end
 
 function scene:show( event )

@@ -1,64 +1,22 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
-----살려주세요
+
 function scene:create( event )
 	local sceneGroup = self.view
+	local text = display.newText("당신을 도울 세 친구! 총알 세 발이 당신을 안내할 것입니다.", display.contentWidth/2, display.contentHeight*0.45)
 	
-	-- BACKGROUND
-	local bg = {}
-	
-	local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
-    dialogueBox.x = display.contentCenterX  
-    dialogueBox.y = display.contentHeight - 130
-    dialogueBox:scale(1, 0.65)
+	-- paper
+	local paper = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth/2, display.contentHeight*0.75)
+	bg.x = display.contentCenterX
+	bg.y = display.contentCenterY
 
+	function title:tap( event )
+ 		composer.hideOverlay('horror_diag_livingroom_paper')
+ 	end
+ 	paper:addEventListener("tap", paper)
 
-	-- DIALOG
-	local dialog = display.newGroup()
-
-	local content = display.newText({
-         text = "", 
-        x = display.contentWidth * 0.5 + 15, 
-        y = display.contentHeight - 105,
-        width = display.contentWidth - 120,
-        height = 200,
-        fontSize = 40,
-        align = "left"
-    })
-	content:setFillColor(1)
-	content.size = 30
-
-	-- BGM
-	local bgm = {}
-
-
-	-- #5 산장 거실 (낮)
-	local Data = jsonParse("json/diag_livingroom.json")
-	if(Data) then
-		print(Data[1].dialogue)
-	end
-
-	-- json에서 읽은 정보 적용하기
-	local index = 0
-
-	local function nextScript( event )
-		index = index + 1
-
-		if (index > #Data) then
-			composer.gotoScene("diag_table")
-			composer.removeScene("diag_livingroom")
-			return
-		end
-
-		content.text = Data[index].dialogue
-
-	end
-	dialogueBox:addEventListener("tap", nextScript)
-	
-
-	sceneGroup:insert(dialogueBox)
-	sceneGroup:insert(dialog)
-	sceneGroup:insert(content)
+ 	sceneGroup:insert(paper)
+ 	sceneGroup:insert(text)
 end
 
 function scene:show( event )

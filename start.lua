@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- view1.lua
+-- view1.lua 였던 start
 --
 -----------------------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ function scene:create( event )
 
 	-- Event Listener
 	local function onStartButtonTapped( event )
-		composer.gotoScene('game')		-- 시작하기 버튼 클릭 시 game 씬(임시)으로
+		composer.gotoScene("game")		-- 시작하기 버튼 클릭 시 game 씬(임시)으로
 	end
 
 	local function onEndButtonTapped( event )
