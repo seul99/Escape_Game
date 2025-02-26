@@ -40,20 +40,61 @@ function scene:create( event )
 	-- json에서 읽은 정보 적용하기
 	local index = 0
 	local horror = "change"
+	local choice = {}
+	choice[1] = display.newRect(display.contentWidth/2-170, display.contentHeight/2+180, 300, 50)
+	choice[1].alpha=0
+	choice[2] = display.newRect(display.contentWidth/2-170, display.contentHeight/2+240, 300, 50)
+	choice[2].alpha=0
+	choice[3] = display.newRect(display.contentWidth/2-170, display.contentHeight/2+300, 300, 50)
+	choice[3].alpha=0
+
+	local function choiceTap(event)
+		if(choice[1].x-50 < event.target.x and event.target.x < choice[1].x + 50
+				and choice[1].y-50 < event.target.y and event.target.y < choice[1].y + 50) then
+				composer.gotoScene("beforeBookGame")
+		elseif(choice[2].x-50 < event.target.x and event.target.x < choice[2].x+50
+			and choice[2].y-50 < event.target.y and event.target.y <choice[2].y + 50) then
+			composer.gotoScene("bedroom_main")
+		elseif(choice[3].x-50 < event.target.x and event.target.x < choice[3].x+50
+			and choice[3].y-50 < event.target.y and event.target.y <choice[3].y + 50) then
+			composer.gotoScene("pipeGame")
+		end
+	end
 
 	local function nextScript( event )
 		index = index + 1
-
 		if (index > #Data) then
-			composer.gotoScene("bookGame")
+			-- composer.gotoScene("bookGame")
+			for i=1, 3 do
+				choice[i].alpha = 1
+			end
 			return
 		end
 
 		content.text = Data[index].dialogue
 	end
-	
-	dialogueBox:addEventListener("tap", nextScript)
 
+	for i=1,3 do
+		choice[i]:addEventListener("tap", choiceTap)
+	end
+	-- local function toGo( event )
+	-- 	if(choice[1].x-50 < event.target.x and event.target.x < choice[1].x
+	-- 		and choice[1].y-50 < event.target.y and event.target.y < choice[1].y) then
+	-- 		composer.gotoScene("beforeBookGame")
+	-- 	-- elseif(choice[2].x-50 < event.target.x and event.target.x < choice[2].x
+	-- 	-- 	and choice[2].y-50 < event.target.y and event.target.y < choice[2].y) then
+	-- 	-- 	composer.gotoScene("bedroom_main")
+	-- 	-- elseif(choice[1].x-50 < event.target.x and event.target.x < choice[1].x
+	-- 	-- 	and choice[1].y-50 < event.target.y and event.target.y < choice[1].y) then
+	-- 	-- 	composer.gotoScene("pipeGame")
+	-- 	end
+	-- end
+
+	dialogueBox:addEventListener("tap", nextScript)
+	-- for i=1,3 do
+	-- 	choice[i]:addEventListener("tap", toGo)
+	-- end
+	-- choice[1]:addEventListener("tap", toGo)
 
 	sceneGroup:insert(bg)
 	sceneGroup:insert(dialogueBox)

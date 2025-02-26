@@ -1,50 +1,42 @@
 -----------------------------------------------------------------------------------------
 --
--- bedroom_wrong.lua
--- 게임을 실패했을 경우 실패화면 전환
+-- beforePipeGame.lua
+--
 -----------------------------------------------------------------------------------------
-
 local composer = require( "composer" )
+local ui = require("ui")                --ui.lua 파일 불러오기기
+
 local scene = composer.newScene()
-
-
 
 function scene:create( event )
 	local sceneGroup = self.view
 
-	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
-	background.x, background.y = display.contentWidth/2, display.contentHeight/2
+     -- BackGround
+	local bg = display.newImage("Image/cutscene/bathroom_blood.png")
+    bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
+	sceneGroup:insert(bg)
 
-	local textBg = display.newRect(display.contentWidth/2, display.contentHeight*0.4, 500, 130 )
-	textBg:setFillColor(0, 0, 0)
+    -- 대화창 & 텍스트
+    local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
+    ui.updateDialogueText(dialogueText, "(임시)지금 야근을 얼마나 하고 있는 거지...?")
 
-	local failureText = display.newText( "Failure", display.contentWidth/2, display.contentHeight*0.4)
-	failureText.size = 140
-	failureText:setFillColor(1,0,0)
-
-	-- 실패했을 경우 카운트
-	local failCount = composer.getVariable("failCount") or 0
-	composer.setVariable("failCount", failCount + 1)
-	 
-
-	-- 실패시 화면전환
-	timer.performWithDelay( 2000, function()
-		failureText:removeSelf()
-		failureText = nil
-
-		textBg:removeSelf()
-		textBg = nil
-
-		if failureText == nil and textBg == nil then 
-			composer.gotoScene("game_wrong")
+    -- 대화창 클릭 이벤트 리스너
+	local function onDialogueBoxTap(event)
+		if no_more_text == 1 then
+			composer.gotoScene("pipeGame")
+		elseif event.phase == "ended" then    
+			ui.updateDialogueText(dialogueText, "(임시)하... 집에 가고 싶다...")
+			no_more_text = 1
 		end
-	end )
+		return true  -- 이벤트 전파 방지
+	end
+
+    dialogueBox:addEventListener("touch", onDialogueBoxTap)
+
+	-- -- BGM
+	-- local bgm = {}
 
 
-	sceneGroup:insert(background)
-	sceneGroup:insert(textBg)
-	sceneGroup:insert(failureText)
-	-- sceneGroup:insert(replay)
 
 end
 
@@ -54,6 +46,8 @@ function scene:show( event )
 	
 	if phase == "will" then
 		-- Called when the scene is still off screen and is about to move on screen
+
+
 	elseif phase == "did" then
 		-- Called when the scene is now on screen
 		-- 
@@ -71,15 +65,16 @@ function scene:hide( event )
 		--
 		-- INSERT code here to pause the scene
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
-		composer.removeScene("bedroom_wrong")
+		--composer.removeScene("dialogue")
+	
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
+	
 	end
 end
 
 function scene:destroy( event )
 	local sceneGroup = self.view
-	
 	-- Called prior to the removal of scene's "view" (sceneGroup)
 	-- 
 	-- INSERT code here to cleanup the scene
