@@ -45,13 +45,11 @@ function scene:create( event )
 		index = index + 1
 
 		if (index > #Data) then
-			composer.gotoScene("dialogue")
+			composer.gotoScene("bookGame")
 			return
 		end
 
-		if (Data[index].text) then
-			content.text = Data[index].dialogue
-		end
+		content.text = Data[index].dialogue
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)
