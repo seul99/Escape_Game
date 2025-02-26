@@ -5,20 +5,32 @@
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
+local ui = require("ui")                --ui.lua 파일 불러오기기
+
 local scene = composer.newScene()
 
 function scene:create( event )
+	local sceneGroup = self.view
 	local bg = display.newImage("Image/study/books.png")
 	bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
+	sceneGroup:insert(bg)
 
-	local click = display.newRect(display.contentCenterX-180, display.contentCenterY-100, 150,100)
-	bg:toFront()
+	-- 대화창 & 텍스트
+    local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
+    ui.updateDialogueText(dialogueText, "책장에서 두 칸만 물건이 들어있네.")
 
-	function tapBook(event)
-		composer.gotoScene("bookGame")
+    -- 대화창 클릭 이벤트 리스너
+	local function onDialogueBoxTap(event)
+		if no_more_text == 1 then
+			composer.gotoScene("bookGame")
+		elseif event.phase == "ended" then    
+			ui.updateDialogueText(dialogueText, "자세히 살펴보자.")
+			no_more_text = 1
+		end
+		return true  -- 이벤트 전파 방지
 	end
-
-	click:addEventListener("tap", tapBook)
+    
+    dialogueBox:addEventListener("touch", onDialogueBoxTap)
 end
 
 function scene:show( event )
