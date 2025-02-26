@@ -9,9 +9,44 @@ local ui = require("ui")                --ui.lua 파일 불러오기기
 
 local scene = composer.newScene()
 
+-- 미니게임 성공 시 대화&총알 업데이트 함수
+local function onMiniGameSuccess()
+    ui.updateDialogueText(dialogueText, "미니게임 성공! 총알을 획득했습니다.")
+    ui.updateBullets(bullets) -- 총알 UI 업데이트
+end
+-- 실패 시 대화 업데이트 함수
+local function onMiniGameFailure()
+    ui.updateDialogueText(dialogueText, "미니게임 실패! 총알을 얻지 못했습니다.")
+    ui.updateDialogueBoxImage(dialogueBox, "image/UI/dialogue/dialogue_default.png")
+end
+
+-- 총알 테스트용으로 대화창 클릭 이벤트 사용. 미니게임 성공을 어떤 식으로 전달할지는 고민해봐야 함--
+
+-- 대화창 클릭 이벤트 리스너
+local function onDialogueBoxTap(event)
+    if event.phase == "ended" then    
+        onMiniGameSuccess()
+    end
+    return true  -- 이벤트 전파 방지
+end
+
 function scene:create(event)
     local sceneGroup = self.view
+    
 
+    -- #1 회사 씬으로 이동 ---------------------------------------------------------------------------------
+    timer.performWithDelay(10, function()
+        composer.gotoScene("company_scene")
+    end)
+
+
+
+
+
+
+
+
+    
     -- 대화창 & 텍스트 생성
     local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
 
@@ -22,34 +57,12 @@ function scene:create(event)
     -- 첫 번째 대화 표시
     ui.updateDialogueText(dialogueText, "게임을 시작합니다!")
     
-    -- 미니게임 성공 시 대화&총알 업데이트 함수
-    local function onMiniGameSuccess()
-        ui.updateDialogueText(dialogueText, "미니게임 성공! 총알을 획득했습니다.")
-        ui.updateBullets(bullets) -- 총알 UI 업데이트
-    end
-    -- 실패 시 대화 업데이트 함수
-    local function onMiniGameFailure()
-        ui.updateDialogueText(dialogueText, "미니게임 실패! 총알을 얻지 못했습니다.")
-        ui.updateDialogueBoxImage(dialogueBox, "image/UI/dialogue/dialogue_default.png")
-    end
-
-    -- 총알 테스트용으로 대화창 클릭 이벤트 사용. 미니게임 성공을 어떤 식으로 전달할지는 고민해봐야 함--
-    -- 대화창 클릭 이벤트 리스너
-    local function onDialogueBoxTap(event)
-        if event.phase == "ended" then    
-            onMiniGameSuccess()
-        end
-        return true  -- 이벤트 전파 방지
-    end
     
-    -- 대화창에 터치 이벤트 리스너 추가
+    
+    -- 대화창에 터치 이벤트 리스너 연결결
     dialogueBox:addEventListener("touch", onDialogueBoxTap)
 
     -- 이것저것. 스토리 진행 & 미니 게임들진행 --
-
-    -- 대화 텍스트 업데이트
-  --  ui.updateDialogueText(dialogueText, "안녕하세요! 게임을 시작하세요.")
-
 
 
 
