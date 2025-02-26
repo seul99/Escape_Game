@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------
 --
 -- game_wrong.lua
--- 테스트 입니다.
+-- 게임실패 했을 경우
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
@@ -74,7 +74,7 @@ end
 		 failCount = failCount + 1
 		 index = failCount
 
-		 -- 더 이상 대사가 없으면 bedroom_main 화면으로 전환
+		 -- 더 이상 대사가 없으면 게임종료 화면으로 전환
 		 if index > #Data then 
 			  composer.gotoScene("bedroom_main")
 		 end
