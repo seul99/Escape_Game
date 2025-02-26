@@ -5,21 +5,21 @@
 -----------------------------------------------------------------------------------------
 
 -- json parsing
- local json = require "json"
- local bgm = require "audio"
+local json = require "json"
+local bgm = require "audio"
 
 -- json parsing
 function jsonParse(src)
-	local filename = system.pathForFile(src)
+   local filename = system.pathForFile(src)
 
-	local data, pos, msg = json.decodeFile(filename)
+   local data, pos, msg = json.decodeFile(filename)
 
-	if(data) then
-		return data
-	else
-		print("WARNING: "..pos, msg)
-		return nil
-	end
+   if(data) then
+	   return data
+   else
+	   print("WARNING: "..pos, msg)
+	   return nil
+   end
 end
 
 -- -- bgm loading
@@ -38,7 +38,7 @@ end
 local composer = require "composer"
 
 local function onFirstView( event )
-	composer.gotoScene( "diag_outside" )
+   composer.gotoScene( "diag_outside" )
 end
 
 onFirstView()
