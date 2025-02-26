@@ -7,7 +7,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 
-local failCount = composer.getVariable( "failCount" ) or 0
+failCount = composer.getVariable( "failCount" ) or 0
 failCount = failCount + 1
 composer.setVariable( "failCount", failCount )
 
