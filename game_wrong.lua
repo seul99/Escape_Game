@@ -6,54 +6,78 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
-local json = require("json")
+
+local failCount = composer.getVariable( "failCount" ) or 0
+failCount = failCount + 1
+composer.setVariable( "failCount", failCount )
+
+local currentLine = 1
+local content
 
 function scene:create( event )
 	local sceneGroup = self.view
 
 	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
-	background.x, background.y = display.contentWidth/2, display.contentHeight/2
+	background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
 
-	function ui.createDialogueBox(sceneGroup)
-		local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
-		dialogueBox.x = display.contentCenterX  
-		dialogueBox.y = display.contentHeight - 150  
-  
-		local text = display.newText({
-			 text = "", 
-			 x = display.contentWidth * 0.5, 
-			 y = display.contentHeight - 170,
-			 width = display.contentWidth - 120,
-			 height = 200,
-			 fontSize = 40,
-			 align = "left"
-		})
-		text:setFillColor(1, 1, 1)
-		
-		sceneGroup:insert(dialogueBox)
-		sceneGroup:insert(text)
-  
-		return dialogueBox, text
+	local dialogBox = display.newImage("image/UI/dialogue/dialogue_default.png")
+	dialogBox.x, dialogBox.y = display.contentWidth / 2, display.contentHeight * 0.8  -- `dialogBox.y` 수정
+
+	 -- 첫 번째 대사 설정
+    local dialogText = ""
+
+    if failCount == 1 then
+        dialogText = "너 한번 실패했어"
+    elseif failCount == 2 then
+        dialogText = "너 지금 두 번째 실패했어."
+    else
+        dialogText = "게임 실패"
+    end
+
+	content = display.newText({
+		text = dialogText, 
+		x = display.contentWidth * 0.6,
+		y = display.contentHeight * 0.85,
+		width = display.contentWidth * 0.7,
+		height = display.contentHeight * 0.2,
+		fontSize = 30,
+		align = "center"
+  })
+  content:setFillColor(0)
+
+
+	-- 터치하면 다음 대사로 변경 (주먹구구식으로 직접 설정)
+	local function changeDialog()
+		if failCount == 1 then
+			 if currentLine == 1 then
+				  content.text = "다시 시도해봐"
+				  currentLine = currentLine + 1
+			 else
+				  composer.gotoScene("bedroom_main")
+			 end
+		elseif failCount == 2 then
+			 if currentLine == 1 then
+				  content.text = "지금 뭐하는거야?"
+				  currentLine = currentLine + 1
+			 elseif currentLine == 2 then
+				  content.text = "다시 시도해"
+				  currentLine = currentLine + 1
+			 else
+				  composer.gotoScene("bedroom_main")
+			 end
+		else
+			 composer.gotoScene("ending")
+		end
   end
 
+  -- 배경을 터치하면 changeDialog() 실행
+  dialogBox:addEventListener("tap", changeDialog)
 
-	-- 대화창
 
-  local failCount = 1
-
-  function checkFailCount()
-		if failCount == 1 then
-			content = "1번째 대사"
-		elseif failCount == 2 then
-			content = "2번째 대사"
-		else 
-			content = "게임 실패"
-		end
-
-		print(content) -- 화면에 출력 (Solar2D에서는 display.newText 사용 가능)
-	end
-  
-  	sceneGroup:insert(background)
+	-- 화면에 추가
+	sceneGroup:insert(background)
+	sceneGroup:insert(dialogBox)
+	sceneGroup:insert(content)
 
 end
 
