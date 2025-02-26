@@ -30,7 +30,7 @@ function scene:create( event )
 		textBg:removeSelf()
 		textBg = nil
 
-		bullet_image = display.newImage("image/bedroom/click/bullets_empty.png")
+		bullet_image = display.newImage("image/UI/bullets/bullets_empty.png")
 		bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
 		sceneGroup:insert(bullet_image)
 
@@ -38,7 +38,7 @@ function scene:create( event )
 	local function onTouch( event )
 		if event.phase == "ended" then 
 			bullet_image:removeSelf()
-			bullet_image = display.newImage("image/bedroom/click/bullets_filled.png")
+			bullet_image = display.newImage("image/UI/bullets/bullets_filled.png")
 			bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
 			sceneGroup:insert(bullet_image)
 		end
