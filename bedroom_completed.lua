@@ -5,6 +5,7 @@
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
+local ui = require("ui")
 local scene = composer.newScene()
 
 function scene:create( event )
@@ -34,7 +35,7 @@ function scene:create( event )
 		bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
 		sceneGroup:insert(bullet_image)
 
-		-- 총알 이미지 클릭해서 획득
+	-- 총알 이미지 클릭해서 획득
 	local function onTouch( event )
 		if event.phase == "ended" then 
 			bullet_image:removeSelf()
@@ -48,10 +49,19 @@ function scene:create( event )
 
 	end)
 
+	local function onMiniGameSuccess()
+		ui.updateDialogueText(dialogueText, "미니게임 성공! 총알을 획득했습니다.")
+		ui.updateBullets(bullets) -- 총알 UI 업데이트
+   end
+
+	local bulletGroup, bullets = ui.createBullets(sceneGroup)
+   
+   
 	
 	sceneGroup:insert(background)
 	sceneGroup:insert(textBg)
 	sceneGroup:insert(completedText)
+	sceneGroup:insert(bulletGroup)
 
 end
 
