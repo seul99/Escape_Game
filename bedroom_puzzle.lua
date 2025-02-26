@@ -13,13 +13,13 @@ function scene:create( event )
 	local background = display.newImageRect("image/bedroom/bedroom_puzzle_bg.png", display.contentWidth, display.contentHeight)
  	background.x, background.y = display.contentWidth/2, display.contentHeight/2
 
-	local frame_image = display.newImage("image/bedroom/click/frame_falled.png")
+	local frame_image = display.newImage("image/bedroom/클릭 부분/frame_falled.png")
 	frame_image.x, frame_image.y = display.contentWidth*0.5, display.contentHeight*0.159
 
-	local lamp_image = display.newImage("image/bedroom/click/lamp_falled.png")
+	local lamp_image = display.newImage("image/bedroom/클릭 부분/lamp_falled.png")
 	lamp_image.x, lamp_image.y = display.contentWidth*0.84, display.contentHeight*0.44
 
-	local pillow_image = display.newImage("image/bedroom/click/pillow_falled.png")
+	local pillow_image = display.newImage("image/bedroom/클릭 부분/pillow_falled.png")
 	pillow_image.x, pillow_image.y = display.contentWidth*0.2, display.contentHeight*0.93
 
 
@@ -36,13 +36,13 @@ function scene:create( event )
 		if event.phase == "ended" then
 			if lampState == "failed" then 
 				lamp_image:removeSelf()
-				lamp_image = display.newImage("image/bedroom/click/lamp_completed.png")
+				lamp_image = display.newImage("image/bedroom/클릭 부분/lamp_completed.png")
 				lamp_image.x, lamp_image.y = display.contentWidth*0.82, display.contentHeight*0.4
 				sceneGroup:insert(lamp_image)
 				lampState = "completed"
 			elseif lampState == "completed" then
 				lamp_image:removeSelf()
-				lamp_image = display.newImage("image/bedroom/click/lamp_falled.png")
+				lamp_image = display.newImage("image/bedroom/클릭 부분/lamp_falled.png")
 				lamp_image.x, lamp_image.y = display.contentWidth*0.84, display.contentHeight*0.44
 				sceneGroup:insert(lamp_image)
 				lampState = "failed"
@@ -59,13 +59,13 @@ function scene:create( event )
 		if event.phase == "ended" then
 			if frameState == "failed" then 
 				frame_image:removeSelf()
-				frame_image = display.newImage("image/bedroom/click/frame_completed.png")
+				frame_image = display.newImage("image/bedroom/클릭 부분/frame_completed.png")
 				frame_image.x, frame_image.y = display.contentWidth*0.5, display.contentHeight*0.159
 				sceneGroup:insert(frame_image)
 				frameState = "completed"
 			elseif frameState == "completed" then
 				frame_image:removeSelf()
-				frame_image = display.newImage("image/bedroom/click/frame_falled.png")
+				frame_image = display.newImage("image/bedroom/클릭 부분/frame_falled.png")
 				frame_image.x, frame_image.y = display.contentWidth*0.5, display.contentHeight*0.159
 				sceneGroup:insert(frame_image)
 				frameState = "failed"
