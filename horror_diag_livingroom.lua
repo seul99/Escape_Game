@@ -5,11 +5,11 @@ function scene:create( event )
 	local sceneGroup = self.view
 	
 	-- BACKGROUND
-	local bg = display.newImage("image/title_bg.png")
+	local bg = display.newImage("image/main title/title_bg.png")
 	bg.x = display.contentCenterX
 	bg.y = display.contentCenterY
 	
-	local dialogueBox = display.newImage("image/dialogue_blood.png")
+	local dialogueBox = display.newImage("image/dialogue/dialogue_blood.png")
     dialogueBox.x = display.contentCenterX  
     dialogueBox.y = display.contentHeight - 130
     dialogueBox:scale(1, 0.65)
