@@ -16,7 +16,11 @@
 		"sound" : "sound/scene12_14.mp3"
 	},
 	{
-		"dialogue" : "일단 총알을 찾아보자. 찾아둬서 나쁘진 않을 거야.",
+		"dialogue" : "... 일단 총알을 찾아보자. 찾아둬서 나쁘진 않을 거야.",
+		"sound" : "sound/scene12_14.mp3"
+	},
+	{
+		"dialogue" : "어딜 먼저 가지?",
 		"sound" : "sound/scene12_14.mp3"
 	}
 ]
