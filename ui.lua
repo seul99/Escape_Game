@@ -1,6 +1,6 @@
 local ui = {}
 
--- 대화창 생성
+-- 대화창 생성  
 function ui.createDialogueBox(sceneGroup)
     local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
     dialogueBox.x = display.contentCenterX  
