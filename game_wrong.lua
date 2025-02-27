@@ -12,14 +12,15 @@ function scene:create(event)
 	local sceneGroup = self.view
 
 	-- 배경 이미지
-	local background = display.newImageRect("image/bedroom/bedroom_wrong.png", display.contentWidth, display.contentHeight)
+	local background = display.newImageRect("image/cutscene/black.png", display.contentWidth, display.contentHeight)
 	background.x, background.y = display.contentWidth / 2, display.contentHeight / 2
+
 
 	-- 대화 박스 이미지
 	local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
 	dialogueBox.x = display.contentCenterX  
-   dialogueBox.y = display.contentHeight - 130
-   dialogueBox:scale(1, 0.65)
+	dialogueBox.y = display.contentHeight - 130
+	dialogueBox:scale(1, 0.65)
 
 	local failCount = composer.getVariable( "failCount" ) or 0
 
@@ -34,14 +35,6 @@ function scene:create(event)
 	failText:setFillColor(0, 0, 0)
 
 	local dialog = display.newGroup()
-	if dialogueBox and content then
-		dialog:insert(dialogueBox)
-		dialog:insert(content)
-		sceneGroup:insert(dialog)
-  else
-		print("Error: dialogueBox or content is nil")
-  end
-
 	local content = display.newText({
         text = "", 
         x = display.contentWidth * 0.5 + 15, 
@@ -63,7 +56,7 @@ local function changeDialog()
         display.remove(content)
 		  display.remove(failText)
     end
-
+	
 	if failCount == 1 then 
 		if index < 2 then
 			-- 새로운 대사 텍스트 생성	
@@ -101,12 +94,12 @@ local function changeDialog()
 			if index == 0 then
 				 content = display.newText({
 					  text = "윽…! 이게 무슨 소리지? 이상한 소리가 날 리가 없어! 여기서는 모두가 즐거우니까!",
-					  x = display.contentWidth / 2,
-					  y = display.contentHeight * 0.8,
-					  width = display.contentWidth - 40,
-					  height = 200,
-					  fontSize = 30,
-					  align = "center"
+					--   x = display.contentWidth / 2,
+					--   y = display.contentHeight * 0.8,
+					--   width = display.contentWidth - 40,
+					--   height = 200,
+					--   fontSize = 30,
+					--   align = "center"
 					x = display.contentWidth * 0.5 + 15, 
 					y = display.contentHeight - 105,
 					width = display.contentWidth - 120,
@@ -116,16 +109,15 @@ local function changeDialog()
 				 })
 				content:setFillColor(1)
 				content.size = 30
-				 content:setFillColor(0, 0, 0)
 			elseif index == 1 then
 				content = display.newText({
 					text = "헉, 아니야! 이런 스산한 공간이 뭐가 즐겁다고!",
-					x = display.contentWidth / 2,
-					y = display.contentHeight * 0.8,
-					width = display.contentWidth - 40,
-					height = 200,
-					fontSize = 30,
-					align = "center"
+					-- x = display.contentWidth / 2,
+					-- y = display.contentHeight * 0.8,
+					-- width = display.contentWidth - 40,
+					-- height = 200,
+					-- fontSize = 30,
+					-- align = "center"
 					x = display.contentWidth * 0.5 + 15, 
 					y = display.contentHeight - 105,
 					width = display.contentWidth - 120,
@@ -139,12 +131,12 @@ local function changeDialog()
 			elseif index == 2 then
 				 content = display.newText({
 					  text = "이 소리에 귀 기울이면 이상해지는 것 같아…. 집에 가는 것만 생각하자",
-					  x = display.contentWidth / 2,
-					  y = display.contentHeight * 0.8,
-					  width = display.contentWidth - 40,
-					  height = 200,
-					  fontSize = 30,
-					  align = "center"
+					--   x = display.contentWidth / 2,
+					--   y = display.contentHeight * 0.8,
+					--   width = display.contentWidth - 40,
+					--   height = 200,
+					--   fontSize = 30,
+					--   align = "center"
 					x = display.contentWidth * 0.5 + 15, 
 					y = display.contentHeight - 105,
 					width = display.contentWidth - 120,
@@ -153,12 +145,12 @@ local function changeDialog()
 					align = "left"
 				 })
 				 content:setFillColor(1)
-				content.size = 30
+				 content.size = 30
 				 content:setFillColor(0, 0, 0)
 			end
 			index = index + 1
 	  else
-		-- 초기 게임 선택지로 돌아가기
+		-- 초기 게임 선택지로 돌아가기	
 		composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
 	  end
 	else

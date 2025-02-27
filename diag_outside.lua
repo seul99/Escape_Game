@@ -45,7 +45,7 @@ function scene:create( event )
 		index = index + 1
 
 		if (index > #Data) then
-			composer.gotoScene("horror_diag_livingroom")
+			composer.gotoScene("after_diag_outside")
 			composer.removeScene("diag_table")
 			return
 		end

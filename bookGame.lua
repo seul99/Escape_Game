@@ -12,6 +12,7 @@ local timeAttack
 function scene:create( event )
 	local sceneGroup = self.view
 
+	
 	local bg = display.newImage("image/study/study_bg.png")
 	bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
 
@@ -23,12 +24,17 @@ function scene:create( event )
 	end
 
 	local bookGroup = display.newGroup()
+	
 	local book = {}
 	book[1] = display.newImage("image/study/5pcs_236px/piece_1.png")
 	book[2] = display.newImage("image/study/5pcs_236px/piece_2.png")
 	book[3] = display.newImage("image/study/5pcs_236px/piece_3.png")
 	book[4] = display.newImage("image/study/5pcs_236px/piece_4.png")
 	book[5] = display.newImage("image/study/5pcs_236px/piece_5.png")
+
+	for i = 1, #book do
+		bookGroup:insert(book[i])
+   end
 
 	for i=1,5 do
 		if(arr[i] == 1) then
@@ -170,29 +176,6 @@ function scene:create( event )
 	end
 
 	------------------------타임어택 구현--------------------------
-	-- local function counter(event)
-	-- 	time.text = time.text - 1
-
-	-- 	if(time.text == '5') then
-	-- 		time:setFillColor(1, 0, 0)
-	-- 	end
-
-	-- 	if(time.text == '-1') then
-	-- 		time.alpha = 0
-	-- 		if(check ~= 5) then
-	-- 			composer.gotoScene( "game_wrong" )
-	-- 		end
-	-- 		for i=1,5 do
-	-- 			book[i]:removeEventListener("tap", tapBook)
-	-- 			book[i]:removeEventListener("tap", switchBook)
-	-- 			book[i]:removeEventListener("tap", check)
-	-- 		end
-	-- 	end
-
-
-	-- end
-	-- timeAttack = timer.performWithDelay(1000, counter, 11)
-
 	local function counter(event)
 		local currentTime = tonumber(time.text) or 0  -- 문자열을 숫자로 변환
   
@@ -207,14 +190,12 @@ function scene:create( event )
 		-- 시간이 다 되면 처리
 		if currentTime == -1 then
 			 time.alpha = 0
-  
-			 -- check 변수가 존재하고 5가 아니라면 'game_wrong'으로 이동
-			 if check and check ~= 5 then
-				-- 실패 카운트 증가
+			if check and check ~= 5 then
+				-- 실패했을 경우 카운트
 				local failCount = composer.getVariable("failCount") or 0
 				composer.setVariable("failCount", failCount + 1)
-				composer.gotoScene( "bookGame_wrong" )
-		  end
+            composer.gotoScene("game_wrong")
+        	end
   
 			 -- 책에서 이벤트 제거
 			 for i = 1, 5 do
@@ -229,8 +210,8 @@ function scene:create( event )
   
   -- 타이머 실행 (초기값 포함 12번 실행)
   timeAttack = timer.performWithDelay(1000, counter, 12)
-
-
+  sceneGroup:insert(bg)
+  sceneGroup:insert(bookGroup)
 end
 
 function scene:show( event )

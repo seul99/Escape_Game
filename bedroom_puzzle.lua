@@ -115,7 +115,6 @@ function scene:create( event )
 		if(time.text =='-1')then
 			time.alpha = 0
 			if lampState ~= "completed" or frameState ~= "completed" or pillowState ~= "completed" then 
-
 				composer.gotoScene('bedroom_wrong')
 			else
 				composer.gotoScene( 'bedroom_completed')
