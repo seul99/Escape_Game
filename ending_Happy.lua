@@ -59,14 +59,14 @@ function scene:create( event )
 
 		if (index > #Data) then
             
-			composer.gotoScene("start")
-			--composer.removeScene("diag_table")
+			composer.gotoScene("quit", { effect = "fade", time = 800 })
 			return
 		end
 
 		bg.fill = {
 			type = "image",
-			filename = Data[index].bg
+			filename = Data[index].bg,
+			{effect = "fade", time = 800}
 		}
         ----- 피 묻은 대화창 기본 대화창으로 변경하는 코드 (근데 씬그룹에서 뭐가 이상한지 예 그렇습니다) -----------
 		--  dialogueBox.fill = {
