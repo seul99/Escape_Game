@@ -154,10 +154,16 @@ function scene:create( event )
 
 				composer.gotoScene( "game_wrong" )
 			else 
-					-- 총알 이미지 생성
-					bullet_image = display.newImage("image/UI/bullets/bullets_empty.png")
-					bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
-					sceneGroup:insert(bullet_image)
+				-- 성공했을 경우
+				local success = composer.getVariable("success") or 0
+				success = success + 1  -- 값 증가
+				composer.setVariable("success", success)  -- 증가된 값 저장
+				print("성공횟수 : "..success)
+
+				-- 총알 이미지 생성
+				bullet_image = display.newImage("image/UI/bullets/bullets_empty.png")
+				bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
+				sceneGroup:insert(bullet_image)
 
 				-- 총알 이미지 클릭해서 획득
 				local function onTouch( event )
@@ -177,10 +183,10 @@ function scene:create( event )
 					timer.performWithDelay( 1000, function() 
 					composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
 					end)
-
 				end
 				return true
-			end
+				end
+				bullet_image:addEventListener("touch", onTouch)
 		end
 
 		for i=1,9 do

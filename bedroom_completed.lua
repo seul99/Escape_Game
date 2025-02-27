@@ -20,6 +20,12 @@ function scene:create( event )
 	local completedText = display.newText( "completed", display.contentWidth/2, display.contentHeight*0.4)
 	completedText.size = 100
 	completedText:setFillColor(1,0,0)
+
+	-- 성공했을 경우
+	local success = composer.getVariable("success") or 0
+	success = success + 1  -- 값 증가
+	composer.setVariable("success", success)  -- 증가된 값 저장
+	print("성공횟수 : "..success)
 	
 
 	local bullet_image

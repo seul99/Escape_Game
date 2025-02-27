@@ -145,6 +145,12 @@ function scene:create( event )
 			end
 			local complete = display.newImage("image/study/study_puzzle_completed_no_eyes.png")
 			complete.x, complete.y = display.contentWidth/2, display.contentHeight/2+80
+
+			-- 성공했을 경우
+			local success = composer.getVariable("success") or 0
+			success = success + 1  -- 값 증가
+			composer.setVariable("success", success)  -- 증가된 값 저장
+			print("성공횟수 : "..success)
 			
 			timer.performWithDelay(3000, function()
 				local eye = display.newImage("image/study/study_puzzle_completed.png")
