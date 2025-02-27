@@ -27,8 +27,8 @@ function scene:create(event)
 	-- 실패 횟수 텍스트
 	local failText = display.newText({
 		text = "실패 횟수: " .. failCount,
-		x = display.contentWidth * 0.15,
-		y = display.contentHeight * 0.9,
+		x = display.contentWidth * 0.1,
+		y = display.contentHeight * 0.75,
 		fontSize = 30,
 		align = "center"
 	})
@@ -63,10 +63,10 @@ local function changeDialog()
 			if index == 0 then
 				 content = display.newText({
 					  text = "그래도 아직 총알 두 개가 남아있으니까",
-					  x = display.contentWidth / 2,
-					  y = display.contentHeight * 0.8,
-					  width = display.contentWidth - 40,
-					  height = 200,
+					  x = display.contentWidth * 0.5,
+					  y = display.contentHeight * 0.75,
+					  -- width = display.contentWidth - 40,
+					  -- height = 200,
 					  fontSize = 30,
 					  align = "center"
 				 })
