@@ -102,7 +102,10 @@ function scene:show(event)
         local success = composer.getVariable("success") or 0  
         print("성공 횟수 미니초이스: " .. tostring(success))
         for i = 1, success do
-        bullets[i].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+            bullets[i].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+        end
+        if success >= 3 then
+            composer.gotoScene("ending_Happy")
         end
     end
 end
