@@ -136,6 +136,7 @@ function scene:create( event )
 		pipe[i]:addEventListener("tap", judge)
 	end
 
+	local bullet
 	local function counter(event)
 		time.text = time.text - 1
 
@@ -152,15 +153,42 @@ function scene:create( event )
 				composer.setVariable("failCount", failCount + 1)
 
 				composer.gotoScene( "game_wrong" )
-			end
-			for i=1,9 do
-				pipe[i]:removeEventListener("tap", tapPipe)
-				pipe[i]:removeEventListener("tap", judge)
+			else 
+					-- 총알 이미지 생성
+					bullet_image = display.newImage("image/UI/bullets/bullets_empty.png")
+					bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
+					sceneGroup:insert(bullet_image)
+
+				-- 총알 이미지 클릭해서 획득
+				local function onTouch( event )
+				if event.phase == "ended" then 
+				-- 기존 총알 이미지 제거
+					if bullet_image then
+					bullet_image:removeSelf()
+					bullet_image = nil
+					end
+
+					-- 총알 획득하기
+					bullet_image = display.newImage("image/UI/bullets/bullets_filled.png")
+					bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
+					sceneGroup:insert(bullet_image)
+
+					-- 1초 뒤 씬 이동
+					timer.performWithDelay( 1000, function() 
+					composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
+					end)
+
+				end
+				return true
 			end
 		end
 
-
+		for i=1,9 do
+			pipe[i]:removeEventListener("tap", tapPipe)
+			pipe[i]:removeEventListener("tap", judge)
+		end
 	end
+end
 	timeAttack = timer.performWithDelay(1000, counter, 11)
 
 	sceneGroup:insert(bg)

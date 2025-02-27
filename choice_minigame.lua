@@ -67,6 +67,7 @@ function scene:create(event)
             sceneGroup:insert(scene.choice[i])
         end
     end
+
 end
 
 function scene:show(event)
@@ -84,15 +85,6 @@ end
 function scene:hide(event)
     local phase = event.phase
     if phase == "will" then
-        -- 선택했던 버튼 숨김
-        -- if scene.choice then
-        --     for i = 1, #scene.choice do
-        --         if scene.choice[i] then
-        --             scene.choice[i]:removeSelf()
-        --             scene.choice[i] = nil
-        --         end
-        --     end
-        -- end
         for i = 1, #scene.choice do
             if scene.choice[i] then
                 scene.choice[i].isVisible = false

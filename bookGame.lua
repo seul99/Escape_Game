@@ -145,25 +145,31 @@ function scene:create( event )
 			end
 			local complete = display.newImage("image/study/study_puzzle_completed_no_eyes.png")
 			complete.x, complete.y = display.contentWidth/2, display.contentHeight/2+80
+			
 			timer.performWithDelay(3000, function()
 				local eye = display.newImage("image/study/study_puzzle_completed.png")
 				eye.x = display.contentWidth/2
 				eye.y = display.contentHeight/2+80
-							timer.performWithDelay(3000, function()
-			bullet = display.newImage("image/UI/bullets/bullets_empty.png")
-			bullet.x, bullet.y = display.contentWidth*0.5, display.contentHeight*0.6
-			local function onTouch( event )
-				if event.phase == "ended" then 
-				bullet:removeSelf()
-				bullet = display.newImage("image/UI/bullets/bullets_filled.png")
+				
+				timer.performWithDelay(3000, function()
+				bullet = display.newImage("image/UI/bullets/bullets_empty.png")
 				bullet.x, bullet.y = display.contentWidth*0.5, display.contentHeight*0.6
-			end
-		end
 
-		bullet:addEventListener("touch", onTouch)
+				local function onTouch( event )
+					if event.phase == "ended" then 
+					bullet:removeSelf()
+					bullet = display.newImage("image/UI/bullets/bullets_filled.png")
+					bullet.x, bullet.y = display.contentWidth*0.5, display.contentHeight*0.6
+					end
+				-- 1초 뒤 씬 이동
+					timer.performWithDelay( 1000, function() 
+					composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
+					end)
+				end
+
+				bullet:addEventListener("touch", onTouch)
 			end)
-			end
-				)
+		end)
 
 			time.alpha = 0
 		end
