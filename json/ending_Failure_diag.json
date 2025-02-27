@@ -1,10 +1,14 @@
 [
     {
-        "bg" : "Image/cutscene/cutscene_10.png",
+        "bg" : "Image/cutscene/black.png",
         "dialogue" : "뭘.. 하라는 거지..? .....설마..."
     },
     {
-        "bg" : "Image/cutscene/cutscene_10.png",
+        "bg" : "Image/cutscene/black.png",
         "dialogue" : "아아아아.... 흑... 제발..."
+    },
+    {
+        "bg" : "Image/cutscene/cutscene_10.png",
+        "dialogue" : "탕!!!!!!!!!!!!!!!!!!!!!!!!!"
     }
 ]

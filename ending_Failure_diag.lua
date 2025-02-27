@@ -5,7 +5,7 @@ function scene:create( event )
 	local sceneGroup = self.view
 	
 	-- BACKGROUND
-	local bg = display.newImage("Image/cutscene/cutscene_10.png")
+	local bg = display.newImage("Image/cutscene/black.png")
 	bg.x = display.contentCenterX
 	bg.y = display.contentCenterY
 	
