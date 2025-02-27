@@ -9,10 +9,15 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+
+	
+
 	local timeAttack
-	local bg = {}
-	bg[1] = display.newImage("image/puzzle/bathroom_puzzle_bg.png")
-	bg[1].x, bg[1].y = display.contentWidth/2, display.contentHeight/2
+
+	
+	local bg = display.newImage("image/puzzle/bathroom_puzzle_bg.png")
+			bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
+
 	
 	local pipeGroupe = display.newGroup()
 	local pipe = {}
@@ -43,6 +48,10 @@ function scene:create( event )
 
 	pipe[9] = display.newImage(pipeGroupe, "image/puzzle/pipe_1_2.png")
 	pipe[9].x, pipe[9].y = display.contentWidth/2, display.contentHeight/2+180 --중앙 아래
+
+	for i = 1, #pipe do
+		pipeGroupe:insert(pipe[i])
+   end
 
 	local time = display.newText(10, display.contentWidth * 0.9, display.contentHeight * 0.15)
 	time.size = 100
@@ -136,9 +145,14 @@ function scene:create( event )
 
 		if(time.text == '-1') then
 			time.alpha = 0
-			-- if(score ~= 5) then
-			-- 	시간 내에 완료하지 못했을 경우 나오는 화면 출력하면 됨
-			-- end
+			if(flag.text == "실패!") then
+				
+				-- 실패했을 경우 카운트
+				local failCount = composer.getVariable("failCount") or 0
+				composer.setVariable("failCount", failCount + 1)
+
+				composer.gotoScene( "game_wrong" )
+			end
 			for i=1,9 do
 				pipe[i]:removeEventListener("tap", tapPipe)
 				pipe[i]:removeEventListener("tap", judge)
@@ -148,6 +162,10 @@ function scene:create( event )
 
 	end
 	timeAttack = timer.performWithDelay(1000, counter, 11)
+
+	sceneGroup:insert(bg)
+	sceneGroup:insert(pipeGroupe)
+	sceneGroup:insert(flag)
 
 end
 
