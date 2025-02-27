@@ -38,7 +38,7 @@ end
 local composer = require "composer"
 
 local function onFirstView( event )
-   composer.gotoScene( "beforeBookGame" )
+   composer.gotoScene( "after_diag_table" )
 end
 
 onFirstView()

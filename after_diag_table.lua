@@ -65,8 +65,24 @@ function scene:create(event)
 	    content.text = "이건 칠면조 다리가 아니잖아 이건, \n이건............!"
 		
 		timer.performWithDelay(1800, function()
+            composer.removeScene("after_diag_table")
 			composer.gotoScene("diag_outside")
 		end)	
+
+    timer.performWithDelay(2000, function()
+        -- 기존 bg가 있으면 삭제
+        if bg then
+            bg:removeSelf()
+            bg = nil
+        end
+
+        -- 새로운 배경 생성
+        bg = display.newImage("Image/cutscene/black.png")
+        bg.x = display.contentCenterX  -- 배경의 x 좌표 설정
+        bg.y = display.contentCenterY  -- 배경의 y 좌표 설정
+        bg:toBack()  -- 배경을 뒤로 보이게 설정
+    end)
+
     end
 
     local function NotEatTapped(event)
@@ -81,8 +97,8 @@ function scene:create(event)
     function nextScript()
         index = index + 1
         if (index > #Data) then
+            composer.removeScene("after_diag_table")
             composer.gotoScene("diag_outside")
-            composer.removeScene("diag_table")
             return
         end
 

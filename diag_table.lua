@@ -36,6 +36,7 @@ function scene:create(event)
     function nextScript(event)
         index = index + 1
         if (index > #Data) then
+            composer.removeScene("diag_table")
             composer.gotoScene("after_diag_table")
             return
         end
