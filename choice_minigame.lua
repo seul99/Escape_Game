@@ -70,12 +70,21 @@ function scene:create(event)
             sceneGroup:insert(scene.choice[i])
         end
     end
-
+    
+    
     -- 목숨(총알) 생성 -----------------------------------------------------------------------------------------
+    local success = composer.getVariable("success") or 0  -- 성공 횟수 가져오기 (nil 방지)
+
     bulletGroup, bullets = ui.createBullets(sceneGroup)
     sceneGroup:insert(bulletGroup)
 
-    local success = {}
+    print("성공횟수 : " .. tostring(success))  -- 문자열 연결 오류 방지
+
+    -- 총알 아이콘 업데이트 함수
+    if 0 < success or success <= 3 then
+        bullets[success].alpha = 1  
+        bullets[success].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+    end
 
 end
 
@@ -94,6 +103,15 @@ end
 function scene:hide(event)
     local phase = event.phase
     if phase == "will" then
+        -- 선택했던 버튼 숨김
+        -- if scene.choice then
+        --     for i = 1, #scene.choice do
+        --         if scene.choice[i] then
+        --             scene.choice[i]:removeSelf()
+        --             scene.choice[i] = nil
+        --         end
+        --     end
+        -- end
         for i = 1, #scene.choice do
             if scene.choice[i] then
                 scene.choice[i].isVisible = false
