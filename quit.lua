@@ -10,8 +10,8 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 	
-    local temp = display.newText("게임이 종료되었습니다.(일단 대충 아무말)", display.contentWidth*0.5, display.contentHeight*0.5)
-    temp:scale(5, 5)
+    local temp = display.newText("게임에서 나왔습니다. \n NPC 게임 개발 해커톤 B팀 이었습니다.", display.contentWidth*0.5, display.contentHeight*0.5)
+    temp:scale(3, 3)
 
 end
 
