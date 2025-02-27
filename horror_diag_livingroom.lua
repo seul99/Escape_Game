@@ -7,7 +7,7 @@ function scene:create( event )
 	local sceneGroup = self.view
 	
 	-- BACKGROUND
-	local bg = display.newImage("Image/main title/title_bg.png")
+	local bg = display.newImage("Image/cutscene/black.png")
 	bg.x = display.contentCenterX
 	bg.y = display.contentCenterY
 	
@@ -49,6 +49,10 @@ function scene:create( event )
 			composer.gotoScene("choice_minigame")
 			return
 		end
+		bg.fill = {
+			type = "image",
+			filename = Data[index].bg
+		}
 		content.text = Data[index].dialogue
 	end
 
