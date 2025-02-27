@@ -1,8 +1,10 @@
 [
     {
+        "bg" : "Image/study/study_completed.png",
         "dialogue" : "후, 갑자기 눈이 생겨서 놀랐네!"
     },
     {
+        "bg" : "Image/study/study_completed.png",
         "dialogue" : "그래도 총알을 얻어서 다행이야. 집으로 돌아갈 길이 한 발자국 더 가까워졌어."
     }
 ]
