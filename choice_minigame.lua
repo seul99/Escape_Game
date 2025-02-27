@@ -1,4 +1,6 @@
 local composer = require("composer")
+local ui = require("ui")                --ui.lua 파일 불러오기기
+
 local scene = composer.newScene()
 
 -- 전역 선택지 테이블 선언
@@ -16,7 +18,8 @@ function scene:create(event)
     bg.y = display.contentCenterY
     sceneGroup:insert(bg)
 
-    -- 버튼 클릭 이벤트 핸들러
+    
+    -- 버튼 클릭 이벤트 핸들러 ---------------------------------------------------------------------------------
     local function onButtonTap(event)
         local index = event.target.buttonIndex
         disabledChoices[index] = true -- 클릭한 버튼 저장
@@ -41,32 +44,38 @@ function scene:create(event)
             fontSize = 40
         })
         buttonText:setFillColor(1, 1, 1)
-
+        
         buttonGroup.x = x
         buttonGroup.y = y
-
+        
         button.buttonIndex = index
         button.targetScene = targetScene
         button:addEventListener("tap", onButtonTap)
-
+        
         -- 이전에 선택했던 버튼이면 숨기기
         if disabledChoices[index] then
             buttonGroup.isVisible = false
         end
-
+        
         return buttonGroup
     end
-
+    
     -- 선택지 버튼 생성 및 sceneGroup에 추가
     scene.choice[1] = createChoiceButton(1, display.contentCenterX, display.contentCenterY + 180, "서재", "beforeBookGame")
     scene.choice[2] = createChoiceButton(2, display.contentCenterX, display.contentCenterY + 240, "침실", "bedroom_puzzle")
     scene.choice[3] = createChoiceButton(3, display.contentCenterX, display.contentCenterY + 300, "화장실", "beforePipeGame")
-
+    
     for i = 1, #scene.choice do
         if scene.choice[i] then
             sceneGroup:insert(scene.choice[i])
         end
     end
+
+    -- 목숨(총알) 생성 -----------------------------------------------------------------------------------------
+    bulletGroup, bullets = ui.createBullets(sceneGroup)
+    sceneGroup:insert(bulletGroup)
+
+    local success = {}
 
 end
 
