@@ -1,0 +1,14 @@
+[
+    {
+        "bg" : "Image/cutscene/black.png",
+        "text" : "어제 저녁 20대 여성 A씨가 회사에서 숨진 채 발견되었습니다."
+    },
+    {
+        "bg" : "Image/cutscene/black.png",
+        "text" : "근 일주일 동안 야근을 강요당하며 제대로 된 휴식을 취하지 못한 것이 원인으로 추정되고 있는데요. 이에 대해 김방송 기자가 취재했습니다..."
+    },
+    {
+        "bg" : "Image/cutscene/black.png",
+        "text" : "네, 다음 뉴스는 ..."
+    }
+]
