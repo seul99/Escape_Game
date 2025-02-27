@@ -59,7 +59,8 @@ function scene:create(event)
         
         return buttonGroup
     end
-    
+
+
     -- 선택지 버튼 생성 및 sceneGroup에 추가
     scene.choice[1] = createChoiceButton(1, display.contentCenterX, display.contentCenterY + 180, "서재", "beforeBookGame")
     scene.choice[2] = createChoiceButton(2, display.contentCenterX, display.contentCenterY + 240, "침실", "bedroom_puzzle")
@@ -98,15 +99,27 @@ function scene:show(event)
                 scene.choice[i].isVisible = true
             end
         end
-        ----
+        --------------------------------------------------------------------------------------------------
         local success = composer.getVariable("success") or 0  
         print("성공 횟수 미니초이스: " .. tostring(success))
+
+        -- 총알 채우기기
         for i = 1, success do
             bullets[i].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
         end
+
+        -- 3번다 성공하면 해피
         if success >= 3 then
-            composer.gotoScene("ending_Happy")
+            composer.gotoScene("ending_Happy", { effect = "fade", time = 400 })
         end
+
+        ---------------------------------------------------------------------------------------------------
+        -- 게임 1 or 2회 실패시 엔딩
+        local gameCount = composer.getVariable( "gameCount" ) or 0
+        if gameCount == 3 and success ~= 3 then 
+            composer.gotoScene('ending_Failure_Note', { effect = "fade", time = 400 })
+        end
+        
     end
 end
 

@@ -115,8 +115,20 @@ function scene:create( event )
 		if(time.text =='-1')then
 			time.alpha = 0
 			if lampState ~= "completed" or frameState ~= "completed" or pillowState ~= "completed" then 
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				composer.gotoScene('bedroom_wrong')
 			else
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				composer.gotoScene( 'bedroom_completed')
 			end
 		end
