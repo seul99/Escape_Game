@@ -44,7 +44,7 @@ function scene:create( event )
 		index = index + 1
 
 		if (index > #Diag) then
-			composer.gotoScene("ending_Bad_Radio")		------이친구는 에러 안뜸요... 지금 있는 루아파일이 에러떠여
+			composer.gotoScene("ending_Bad_Radio", { effect = "fade", time = 400 })		------이친구는 에러 안뜸요... 지금 있는 루아파일이 에러떠여
 			--composer.removeScene("diag_table")
 			return
 		end

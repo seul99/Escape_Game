@@ -75,6 +75,7 @@ function scene:create( event )
 	local flag = display.newText("실패!", display.contentWidth * 0.1, display.contentHeight * 0.15)
 	flag.size = 100
 	flag:setFillColor(0)
+	flag.alpha = 0
 
 	--------------탭하면 돌아가게끔 구현, 돌린 횟수 1씩 증가
 	local function tapPipe(event)
@@ -119,6 +120,7 @@ function scene:create( event )
 
 		if(score == 7) then
 			flag.text = "성공!"
+			flag.alpha = 0
 			time.alpha = 0
 			for i=1,9 do
 				pipe[i]:removeEventListener("tap", tapPipe)
@@ -126,6 +128,7 @@ function scene:create( event )
 			end
 		else
 			flag.text = "실패!"
+			flag.alpha = 0
 		end
 	end
 
