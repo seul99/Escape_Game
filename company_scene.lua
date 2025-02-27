@@ -26,6 +26,7 @@ function scene:create( event )
 	local function onDialogueBoxTap(event)
 		if no_more_text == 1 then
 			composer.gotoScene("snowball_scene")
+			composer.removeScene("company_scene")
 		elseif event.phase == "ended" then    
 			ui.updateDialogueText(dialogueText, "하... 집에 가고 싶다...")
 			no_more_text = 1
