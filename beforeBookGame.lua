@@ -11,7 +11,7 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
-	local bg = display.newImage("Image/study/books.png")
+	local bg = display.newImage("Image/study/study.png")
 	bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
 	sceneGroup:insert(bg)
 
