@@ -38,7 +38,7 @@ end
 local composer = require "composer"
 
 local function onFirstView( event )
-   composer.gotoScene( "ending_Failure_diag" )
+   composer.gotoScene( "ending_Failure_Note" )
 end
 
 onFirstView()
