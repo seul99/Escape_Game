@@ -31,7 +31,7 @@ function scene:create( event )
 	content.size = 30
 
 
-	-- 미니게임 화장실 파이프게임 성공
+	-- 미니게임 침실 대칭게임 성공
 	local Data = jsonParse("json/diag_success_bedroom.json")
 	if(Data) then
 		print(Data[1].dialogue)

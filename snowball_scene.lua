@@ -57,7 +57,7 @@ function scene:create( event )
     sceneGroup:insert(bg)
     
     local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)      --createDialogueBox 함수에 이미 씬그룹 인서트 있어서 여기에 둠
-    ui.updateDialogueText(dialogueText, "(임시)이주임님이 여행 다녀왔다고 이 스노우볼 돌렸지... ")
+    ui.updateDialogueText(dialogueText, "이주임님이 여행 다녀왔다고 이 스노우볼 돌렸지... ")
     
     -- 깜빡임 효과를 위한 Rect
     fadeRect = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight)
@@ -77,7 +77,7 @@ function scene:create( event )
 
     -- 1초 후 깜빡임 효과 시작
     timer.performWithDelay(1200, function()
-        ui.updateDialogueText(dialogueText, "(임시)아... 나도 여행 가고 싶다...")
+        ui.updateDialogueText(dialogueText, "아... 나도 여행 가고 싶다...")
 
         fadeToBlack()
     end)

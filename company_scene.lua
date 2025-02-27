@@ -20,14 +20,14 @@ function scene:create( event )
 
     -- 대화창 & 텍스트
     local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
-    ui.updateDialogueText(dialogueText, "(임시)지금 야근을 얼마나 하고 있는 거지...?")
+    ui.updateDialogueText(dialogueText, "지금 야근을 얼마나 하고 있는 거지...?")
 
     -- 대화창 클릭 이벤트 리스너
 	local function onDialogueBoxTap(event)
 		if no_more_text == 1 then
 			composer.gotoScene("snowball_scene")
 		elseif event.phase == "ended" then    
-			ui.updateDialogueText(dialogueText, "(임시)하... 집에 가고 싶다...")
+			ui.updateDialogueText(dialogueText, "하... 집에 가고 싶다...")
 			no_more_text = 1
 		end
 		return true  -- 이벤트 전파 방지
