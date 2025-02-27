@@ -136,46 +136,69 @@ function scene:create( event )
 			score = score + 1
 		end
 
-		local bullet
-		if(score == 5) then
-			for i = 1,5 do
-				book[i]:removeEventListener("tap", tapBook)
-				book[i]:removeEventListener("tap", switchBook)
-				book[i]:removeEventListener("tap", check)
-			end
-			local complete = display.newImage("image/study/study_puzzle_completed_no_eyes.png")
-			complete.x, complete.y = display.contentWidth/2, display.contentHeight/2+80
+		-- 성공 시 처리
+	if score == 5 then
+		-- 모든 이벤트 제거
+		for i = 1, 5 do
+			book[i]:removeEventListener("tap", tapBook)
+			book[i]:removeEventListener("tap", switchBook)
+			book[i]:removeEventListener("tap", check)
+		end
 
-			-- 성공했을 경우
-			local success = composer.getVariable("success") or 0
-			success = success + 1  -- 값 증가
-			composer.setVariable("success", success)  -- 증가된 값 저장
-			print("성공횟수 : "..success)
-			
+		-- bookGroup 내 모든 책 제거
+		if bookGroup then
+			bookGroup:removeSelf()
+			bookGroup = nil
+		end
+
+		-- 타이머 중지 (실패 씬으로 이동 방지)
+		if timeAttack then
+			timer.cancel(timeAttack)
+			timeAttack = nil
+		end
+
+		-- 성공 이미지 표시
+		local complete = display.newImage("image/study/study_puzzle_completed_no_eyes.png")
+		complete.x, complete.y = display.contentWidth/2, display.contentHeight/2+80
+
+		
+
+		-- 성공 횟수 증가
+		local success = composer.getVariable("success") or 0
+		success = success + 1
+		composer.setVariable("success", success)
+		print("성공횟수 : " .. success)
+
+		-- 3초 후 눈 이미지 표시 후 다음 씬 이동
+		timer.performWithDelay(3000, function()
+			local eye = display.newImage("image/study/study_puzzle_completed.png")
+			eye.x = display.contentWidth/2
+			eye.y = display.contentHeight/2+80
+
 			timer.performWithDelay(3000, function()
-				local eye = display.newImage("image/study/study_puzzle_completed.png")
-				eye.x = display.contentWidth/2
-				eye.y = display.contentHeight/2+80
-				
-				timer.performWithDelay(3000, function()
-				bullet = display.newImage("image/UI/bullets/bullets_empty.png")
-				bullet.x, bullet.y = display.contentWidth*0.5, display.contentHeight*0.6
+				local bullet = display.newImage("image/UI/bullets/bullets_empty.png")
+				bullet.x, bullet.y = display.contentWidth * 0.5, display.contentHeight * 0.6
 
-				local function onTouch( event )
-					if event.phase == "ended" then 
-					bullet:removeSelf()
-					bullet = display.newImage("image/UI/bullets/bullets_filled.png")
-					bullet.x, bullet.y = display.contentWidth*0.5, display.contentHeight*0.6
+				local function onTouch(event)
+					if event.phase == "ended" then
+						bullet:removeSelf()
+						bullet = display.newImage("image/UI/bullets/bullets_filled.png")
+						bullet.x, bullet.y = display.contentWidth * 0.5, display.contentHeight * 0.6
 					end
-				-- 1초 뒤 씬 이동
-					timer.performWithDelay( 1000, function() 
-					composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
+
+					--  1초 뒤 씬 이동
+					timer.performWithDelay(1000, function()
+						display.remove( eye )
+						display.remove( complete )
+						display.remove( bullet )
+						composer.gotoScene("choice_minigame", { effect = "fade", time = 400 })
 					end)
 				end
 
 				bullet:addEventListener("touch", onTouch)
 			end)
 		end)
+
 
 			time.alpha = 0
 		end
@@ -224,6 +247,7 @@ function scene:create( event )
   timeAttack = timer.performWithDelay(1000, counter, 12)
   sceneGroup:insert(bg)
   sceneGroup:insert(bookGroup)
+
 end
 
 function scene:show( event )
