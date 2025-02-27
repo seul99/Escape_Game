@@ -1,11 +1,14 @@
 [
     {
+        "bg" : "Image/cutscene/bathroom_blood.png",
         "dialogue" : "욕조에 핏물이...!"
     },
     {
+        "bg" : "Image/cutscene/bathroom_blood.png",
         "dialogue" : "일단 욕조 안의 핏물을 뺴내야 하나?"
     },
     {
+        "bg" : "Image/cutscene/bathroom_blood.png",
         "dialogue" : "가만 보니 배수관이 고장나서 핏물이 내려가지 못하는 것 같아.\n배수관의 이음매가 낡아서 빠르게 연결하지 않으면 바스러질거야.\n빠르게 해보자."
     }
 ]
