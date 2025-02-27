@@ -10,8 +10,6 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 
-	
-
 	local timeAttack
 
 	
@@ -147,6 +145,12 @@ function scene:create( event )
 		if(time.text == '-1') then
 			time.alpha = 0
 			if(flag.text == "실패!") then
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				
 				-- 실패했을 경우 카운트
 				local failCount = composer.getVariable("failCount") or 0
@@ -154,6 +158,12 @@ function scene:create( event )
 
 				composer.gotoScene( "game_wrong" )
 			else 
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				-- 성공했을 경우
 				local success = composer.getVariable("success") or 0
 				success = success + 1  -- 값 증가

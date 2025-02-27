@@ -138,6 +138,12 @@ function scene:create( event )
 
 		-- 성공 시 처리
 	if score == 5 then
+		    -- 게임 실행시 카운트
+			 local gameCount = composer.getVariable( "gameCount" ) or 0
+			 gameCount = gameCount + 1
+			 composer.setVariable( "gameCount", gameCount )
+		
+			 print("게임 실행 횟수 : "..gameCount)
 		-- 모든 이벤트 제거
 		for i = 1, 5 do
 			book[i]:removeEventListener("tap", tapBook)
@@ -226,6 +232,12 @@ function scene:create( event )
 		if currentTime == -1 then
 			 time.alpha = 0
 			if check and check ~= 5 then
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				-- 실패했을 경우 카운트
 				local failCount = composer.getVariable("failCount") or 0
 				composer.setVariable("failCount", failCount + 1)
