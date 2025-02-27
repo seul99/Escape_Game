@@ -1,10 +1,10 @@
 [
     {
-        "bg" : "Image/cutscene/black.png",
+        "bg" : "Image/cutscene/cutscene_10.png",
         "dialogue" : "뭘.. 하라는 거지..? .....설마..."
     },
     {
-        "bg" : "Image/cutscene/black.png",
+        "bg" : "Image/cutscene/cutscene_10.png",
         "dialogue" : "아아아아.... 흑... 제발..."
     }
 ]
