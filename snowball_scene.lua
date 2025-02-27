@@ -32,6 +32,7 @@ local function fadeToBlack()
                 -- 암전이 끝난 후 1.8초 유지 후 씬 전환
                 timer.performWithDelay(1800, function()
                     composer.gotoScene("diag_livingroom") -- 원하는 씬으로 변경
+                    composer.removeScene("snowball_scene")
                 end)
             end })
         end)
