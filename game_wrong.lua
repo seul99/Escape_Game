@@ -32,7 +32,7 @@ function scene:create(event)
 		fontSize = 30,
 		align = "center"
 	})
-	failText:setFillColor(0, 0, 0)
+	failText:setFillColor(1)
 
 	local dialog = display.newGroup()
 	local content = display.newText({
@@ -63,25 +63,27 @@ local function changeDialog()
 			if index == 0 then
 				 content = display.newText({
 					  text = "그래도 아직 총알 두 개가 남아있으니까",
-					  x = display.contentWidth * 0.5,
+					  x = display.contentWidth/2 - 350,
 					  y = display.contentHeight * 0.75,
 					  -- width = display.contentWidth - 40,
 					  -- height = 200,
 					  fontSize = 30,
 					  align = "center"
 				 })
-				 content:setFillColor(0, 0, 0)
+				 content.size = 30
+				 content:setFillColor(1)
 			elseif index == 1 then
 				 content = display.newText({
 					  text = "어서 다른 장소를 찾아보자.",
-					  x = display.contentWidth / 2,
-					  y = display.contentHeight * 0.8,
-					  width = display.contentWidth - 40,
-					  height = 200,
+					  x = display.contentWidth/2 - 420,
+					  y = display.contentHeight * 0.75,
+					--   width = display.contentWidth - 40,
+					--   height = 200,
 					  fontSize = 30,
-					  align = "center"
+					  align = "left"
 				 })
-				 content:setFillColor(0, 0, 0)
+				 content.size = 30
+				 content:setFillColor(1)
 			end
 			index = index + 1
 			else
@@ -107,8 +109,8 @@ local function changeDialog()
 					fontSize = 40,
 					align = "left"
 				 })
-				content:setFillColor(1)
-				content.size = 30
+				 content.size = 30
+				 content:setFillColor(1)
 			elseif index == 1 then
 				content = display.newText({
 					text = "헉, 아니야! 이런 스산한 공간이 뭐가 즐겁다고!",
@@ -125,9 +127,8 @@ local function changeDialog()
 					fontSize = 40,
 					align = "left"
 			  })
-			  content:setFillColor(1)
-				content.size = 30
-			  --content:setFillColor(0, 0, 0)
+				 content.size = 30
+				 content:setFillColor(1)
 			elseif index == 2 then
 				 content = display.newText({
 					  text = "이 소리에 귀 기울이면 이상해지는 것 같아…. 집에 가는 것만 생각하자",
@@ -144,9 +145,8 @@ local function changeDialog()
 					fontSize = 40,
 					align = "left"
 				 })
-				 content:setFillColor(1)
 				 content.size = 30
-				 content:setFillColor(0, 0, 0)
+				 content:setFillColor(1)
 			end
 			index = index + 1
 	  else
