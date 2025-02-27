@@ -8,7 +8,7 @@ function scene:create(event)
     local sceneGroup = self.view
 
     --BackGround
-    local bg = display.newImage("Image/main title/title_bg.png")
+    local bg = display.newImage("Image/cutscene/revolver_frame.png")
     bg.x = display.contentCenterX
     bg.y = display.contentCenterY
     sceneGroup:insert(bg) -- 배경 추가
