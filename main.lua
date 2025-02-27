@@ -38,7 +38,7 @@ end
 local composer = require "composer"
 
 local function onFirstView( event )
-   composer.gotoScene( "ending_Failure_Note" )
+   composer.gotoScene( "choice_minigame" )
 end
 
 onFirstView()

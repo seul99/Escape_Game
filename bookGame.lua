@@ -170,28 +170,67 @@ function scene:create( event )
 	end
 
 	------------------------타임어택 구현--------------------------
+	-- local function counter(event)
+	-- 	time.text = time.text - 1
+
+	-- 	if(time.text == '5') then
+	-- 		time:setFillColor(1, 0, 0)
+	-- 	end
+
+	-- 	if(time.text == '-1') then
+	-- 		time.alpha = 0
+	-- 		if(check ~= 5) then
+	-- 			composer.gotoScene( "game_wrong" )
+	-- 		end
+	-- 		for i=1,5 do
+	-- 			book[i]:removeEventListener("tap", tapBook)
+	-- 			book[i]:removeEventListener("tap", switchBook)
+	-- 			book[i]:removeEventListener("tap", check)
+	-- 		end
+	-- 	end
+
+
+	-- end
+	-- timeAttack = timer.performWithDelay(1000, counter, 11)
+
 	local function counter(event)
-		time.text = time.text - 1
-
-		if(time.text == '5') then
-			time:setFillColor(1, 0, 0)
+		local currentTime = tonumber(time.text) or 0  -- 문자열을 숫자로 변환
+  
+		currentTime = currentTime - 1
+		time.text = tostring(currentTime)  -- 다시 문자열로 변환 후 적용
+  
+		-- 5초 남았을 때 빨간색으로 변경
+		if currentTime == 5 then
+			 time:setFillColor(1, 0, 0)
 		end
-
-		if(time.text == '-1') then
-			time.alpha = 0
-			-- if(score ~= 5) then
-			-- 	시간 내에 완료하지 못했을 경우 나오는 화면 출력하면 됨
-			-- end
-			for i=1,5 do
-				book[i]:removeEventListener("tap", tapBook)
-				book[i]:removeEventListener("tap", switchBook)
-				book[i]:removeEventListener("tap", check)
-			end
+  
+		-- 시간이 다 되면 처리
+		if currentTime == -1 then
+			 time.alpha = 0
+  
+			 -- check 변수가 존재하고 5가 아니라면 'game_wrong'으로 이동
+			 if check and check ~= 5 then
+				-- 실패 카운트 증가
+				local failCount = composer.getVariable("failCount") or 0
+				composer.setVariable("failCount", failCount + 1)
+				composer.gotoScene( "bookGame_wrong" )
+		  end
+  
+			 -- 책에서 이벤트 제거
+			 for i = 1, 5 do
+				  if book[i] then
+						book[i]:removeEventListener("tap", tapBook)
+						book[i]:removeEventListener("tap", switchBook)
+						book[i]:removeEventListener("tap", check)
+				  end
+			 end
 		end
+  end
+  
+  -- 타이머 실행 (초기값 포함 12번 실행)
+  timeAttack = timer.performWithDelay(1000, counter, 12)
 
 
-	end
-	timeAttack = timer.performWithDelay(1000, counter, 11)
 end
 
 function scene:show( event )
@@ -217,6 +256,7 @@ function scene:hide( event )
 		--
 		-- INSERT code here to pause the scene
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
+		composer.removeScene( "bookGame" )
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 	end
