@@ -1,0 +1,18 @@
+[
+    {
+        "bg" : "Image/cutscene/black.png",
+        "text" : "아직 미치기 전이라면 이 글이 제대로 읽히겠지.\n총과 총알을 챙겨서 산장 밖으로 나가 당장!\n네가 어디에 있었는지 기억해내야 해."
+    },
+    {
+        "bg" : "Image/cutscene/cutscene_10.png",
+        "dialogue" : "제발... 제발 밖으로 보내줘!!!!"
+    },
+    {
+        "bg" : "Image/cutscene/company.png",
+        "dialogueBox" : "Image/UI/dialogue/dialogue_default.png",
+        "dialogue" : "헉.....! 이게 무슨... 꿈이었어..?"
+    },
+    {
+        "bg" : "Image/cutscene/black.png"
+    }
+]
