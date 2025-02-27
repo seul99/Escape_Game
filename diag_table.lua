@@ -64,7 +64,7 @@ function scene:create(event)
 
 	    content.text = "이건 칠면조 다리가 아니잖아 이건, \n이건............!"
 		
-		timer.performWithDelay(1500, function()
+		timer.performWithDelay(1800, function()
 			composer.gotoScene("diag_outside")
 		end)	
     end
