@@ -15,12 +15,27 @@
 
 <br>
 
-## 📝 게임 내용 
--- 업로드 예정
+## 📝 게임 소개
+![솜뭉치-0000](https://github.com/user-attachments/assets/47150bae-e162-4833-95f7-98160a9174ad)
+![솜뭉치-0001](https://github.com/user-attachments/assets/71da40ab-2e11-4df4-84e5-a90ff589dbda)
+![솜뭉치-0002](https://github.com/user-attachments/assets/a5231b26-b6cf-4c44-8fa9-5d87efeb8f40)
+![솜뭉치-0003](https://github.com/user-attachments/assets/1e7c2099-13b7-4d7f-aa50-a0279118e17e)
+![솜뭉치-0004](https://github.com/user-attachments/assets/b2925c41-fb98-4732-b102-a9a126bcdc50)
+![솜뭉치-0005](https://github.com/user-attachments/assets/31e50e6d-d002-4dc8-b11d-99cf373d2c8b)
+![솜뭉치-0006](https://github.com/user-attachments/assets/1d8f0065-8a92-4135-bf6e-165f3c81bc5e)
+![솜뭉치-0007](https://github.com/user-attachments/assets/8dc9465d-5af9-4e1e-9df2-ecffba8a93a6)
+
+
+
+
+
+
+
 
 <br>
 
-## 👥 팀원 
+## 👥 팀원
+팀명 : 솜뭉치
 기획자 : 권가영, 공선영 <br>
 디자이너 : 곽현수 <br>
 개발자 : 최윤서, 신희진, 조혜진, 박슬기 <br>
